@@ -7,7 +7,6 @@ class RightContainer extends Component {
     render(){
         return(
             <div>
-                right container
                 <ContentsHeader content={'記録'} />
                 <div className={classes.sample_box}>
                 </div>

@@ -14,7 +14,6 @@ import Divider from '@material-ui/core/Divider';
 const styles = theme => ({
     root: {
       width: '100%',
-      maxWidth: 360,
       backgroundColor: theme.palette.background.paper,
     },
     inline: {
@@ -23,7 +22,7 @@ const styles = theme => ({
     icon: {
         width: '40px',
         height: '40px'
-    }
+    },
   });
 
 class RankingContainer extends Component {
@@ -32,7 +31,7 @@ class RankingContainer extends Component {
         return(
             <div className={css.rankingContainer}>
                 <List className={classes.root}>
-                    <ListItem alignItems="flex-start">
+                    <ListItem alignItems="flex-start" >
                         <ListItemAvatar>
                         {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
                         <FaceIcon className={classes.icon} />
