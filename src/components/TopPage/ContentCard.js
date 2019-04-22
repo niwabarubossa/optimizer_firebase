@@ -25,6 +25,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import FaceIcon from '@material-ui/icons/Face';
 import Divider from '@material-ui/core/Divider';
 
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -40,7 +41,18 @@ const styles = theme => ({
   },
   card: {
     height: 'auto'
-  }
+  },
+  actions: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
 });
 
 class ContentCard extends Component {
@@ -70,7 +82,20 @@ class ContentCard extends Component {
 
             <div className={css.contentContainer}>
                 orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                </div>
+            </div>
+
+            <CardActions className={classes.actions} disableActionSpacing>
+              <IconButton aria-label="Add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton aria-label="Share">
+                <ShareIcon />
+              </IconButton>
+              <IconButton aria-label="Share">
+                <Comment />
+              </IconButton>
+            </CardActions>
+
             <Divider />
           </div>
         )
