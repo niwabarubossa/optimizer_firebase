@@ -1,5 +1,12 @@
 .contentsContainer{
-    background-color: black;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 1;
+    background-color: gray;
+    opacity: 0.5;
 }
 .tweetForm{
     position: absolute;
@@ -8,4 +15,5 @@
     right: 25%;
     left: 25%;
     z-index: 10;
+    border:solid 1px gray;
 }
