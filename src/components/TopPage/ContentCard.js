@@ -1,7 +1,7 @@
-import React from 'react'
+import React,{ Component } from 'react'
 import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
-import classes from '../../assets/mainPage/ContentCard.css';
+import css from '../../assets/mainPage/ContentCard.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom'
 
@@ -17,46 +17,64 @@ import Autorenew from '@material-ui/icons/Autorenew';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardActions from '@material-ui/core/CardActions';
+import { withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import FaceIcon from '@material-ui/icons/Face';
+import Divider from '@material-ui/core/Divider';
 
-const ContentCard = ({props}) => {
-  return (
-          <div className={classes.cardContainer} >
-            <Card>
-                <Link to={`user/${props.author_id}`}>
-                    <CardHeader
-                        avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
-                        </Avatar>
-                        }
-                        action={
-                        <IconButton>
-                            <MoreVertIcon />
-                        </IconButton>
-                        }
-                        title="User Name"
-                        subheader="September 14, 2016"
-                        className={classes.cardHeader}
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  inline: {
+    display: 'inline',
+  },
+  icon: {
+      width: '40px',
+      height: '40px'
+  },
+  card: {
+    height: 'auto'
+  }
+});
+
+class ContentCard extends Component {
+    render(){
+        const { classes } = this.props;
+        return(
+          <div className={css.cardContainer} >
+            <ListItem className={classes.card}>
+              {/* <div className={css.tweetHeader}> */}
+                  <ListItemAvatar>
+                    {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
+                  <FaceIcon className={classes.icon} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary="Brunch this weekend?"
+                    secondary={
+                    <React.Fragment>
+                    <Typography component="span" className={classes.inline} color="textPrimary">
+                      Ali Connors
+                    </Typography>
+                      {" — I'll be in your neighborhood doing errands this…"}
+                      </React.Fragment>
+                    }
                     />
-                </Link>
-              <CardContent>
-                title<span style={{color: 'black'}}>{props.title}</span>
-                body<span style={{color: 'black'}}>{props.body}</span>
-                author_id<span style={{color: 'black'}}>{props.author_id}</span>
-              </CardContent>
-              <CardActions className={classes.actions} disableActionSpacing>
-                <IconButton aria-label="Add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="Autorenew">
-                  <Autorenew />
-                </IconButton>
-                <IconButton aria-label="Comment">
-                  <Comment />
-                </IconButton>
-              </CardActions>
-            </Card>
+                {/* </div> */}
+            </ListItem>
+
+            <div className={css.contentContainer}>
+                orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                </div>
+            <Divider />
           </div>
-  )
+        )
+    }
 }
 
-export default ContentCard
+export default withStyles(styles)(ContentCard);
