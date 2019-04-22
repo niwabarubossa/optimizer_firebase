@@ -1,0 +1,12 @@
+.chartContainer{
+    margin-top:10px;
+}
+.barChart{
+}
+.chartContainer{
+    width:auto;
+}
+.barChartContainer{
+    width: 100%;
+    margin:10px auto;
+}
