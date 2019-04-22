@@ -60,6 +60,3 @@ const mapDispatchToProps = ({ submitTweet })
 export default connect(null, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(ContentsContainer)
 )
-// export default connect(null, mapDispatchToProps)(ContentsContainer)
-
-

@@ -30,13 +30,6 @@ class ColorBox extends Component {
                 <div className={classes.colorBoxContainer}>
                     <div className={classes.colorBox} style={this.props.style} onClick={this.togglePopup.bind(this)} >
                         <ColorBoxContent />
-                        {/* {this.state.showPopup ? 
-                            <Popup
-                            text='Close Me'
-                            closePopup={this.togglePopup.bind(this)}
-                            />
-                            : null
-                        } */}
                     </div>
                 </div>
 
