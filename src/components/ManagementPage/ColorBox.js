@@ -5,12 +5,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
 class ColorBox extends Component {
-    constructor() {
-        super();
-        this.state = {
-          showPopup: false
-        };
-    }
 
     render(){
         return(
