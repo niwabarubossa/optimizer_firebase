@@ -1,0 +1,21 @@
+.mainContainer{
+    height:auto;
+    padding:0px 5px;
+    width:90%;
+    max-width: 1050px;
+    margin:30px auto;
+    background-color: #F7F7F7;
+}
+.sample1{
+    margin: 10px auto;
+    width:95%;
+    height:400px;
+    border:dotted 1px #90EE90;
+    border-radius: 5px;
+}
+.sample2{
+    margin: 10px auto;
+    width:95%;
+    height:400px;
+    border-radius: 5px;
+}
