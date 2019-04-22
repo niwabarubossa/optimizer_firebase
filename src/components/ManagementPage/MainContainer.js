@@ -3,6 +3,7 @@ import MainContent from './MainContent'
 import classes from '../../assets/managementPage/MainContainer.css'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentsContainer from '../TopPage/ContentsContainer'
 
 class MainContainer extends Component {
 
@@ -29,6 +30,13 @@ class MainContainer extends Component {
         return(
             <div className={classes.managementMainContainer}>
                 <MainContent />
+
+                { this.state.showPopup ?
+                <ContentsContainer />             
+                :
+                null
+                }
+
                 <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}>
                     <ContentAdd />
                 </FloatingActionButton>

@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 import { submitTweet } from '../../actions'
 import Button from '@material-ui/core/Button';
+import css from '../../assets/ContentsContainer.css'
 
 class ContentsContainer extends Component {
     constructor(props){
