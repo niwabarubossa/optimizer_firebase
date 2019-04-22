@@ -9,6 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import FaceIcon from '@material-ui/icons/Face';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
     root: {
@@ -19,6 +20,10 @@ const styles = theme => ({
     inline: {
       display: 'inline',
     },
+    icon: {
+        width: '40px',
+        height: '40px'
+    }
   });
 
 class RankingContainer extends Component {
@@ -30,7 +35,7 @@ class RankingContainer extends Component {
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
                         {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
-                        <FaceIcon />
+                        <FaceIcon className={classes.icon} />
                         </ListItemAvatar>
                         <ListItemText
                         primary="Brunch this weekend?"
@@ -44,9 +49,12 @@ class RankingContainer extends Component {
                         }
                         />
                     </ListItem>
+                    
+                    <Divider />
+
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            <FaceIcon className={classes.icon} />
                         </ListItemAvatar>
                         <ListItemText
                         primary="Summer BBQ"
@@ -60,9 +68,12 @@ class RankingContainer extends Component {
                         }
                         />
                     </ListItem>
+                    
+                    <Divider />
+
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/3.jpg" />
+                            <FaceIcon className={classes.icon} />
                         </ListItemAvatar>
                         <ListItemText
                         primary="Oui Oui"
