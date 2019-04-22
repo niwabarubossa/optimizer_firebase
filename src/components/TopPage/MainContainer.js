@@ -17,7 +17,7 @@ class MainContainer extends Component {
         return(
             <div className="mainContainer">
                 <Grid container spacing={16} >
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={7}>
                         <div className={classes.contentCardContainer}>
                             <ContentCardContainer />
                         </div>
