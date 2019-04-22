@@ -11,31 +11,15 @@ class ColorBox extends Component {
           showPopup: false
         };
     }
-    togglePopup() {
-        this.setState({
-          showPopup: !this.state.showPopup
-        });
-    }
 
     render(){
-        const AddBtnStyle={
-            position: "fixed",
-            right: 12,
-            bottom: 12,
-            zIndex: 2
-        }
-
         return(
             <React.Fragment>
                 <div className={classes.colorBoxContainer}>
-                    <div className={classes.colorBox} style={this.props.style} onClick={this.togglePopup.bind(this)} >
+                    <div className={classes.colorBox} style={this.props.style}>
                         <ColorBoxContent />
                     </div>
                 </div>
-
-                <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}>
-                    <ContentAdd />
-                </FloatingActionButton>
             </React.Fragment>
         )
     }
