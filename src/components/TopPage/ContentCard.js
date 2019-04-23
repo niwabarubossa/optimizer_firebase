@@ -62,26 +62,26 @@ class ContentCard extends Component {
         const { classes } = this.props;
         return(
           <div className={css.cardContainer} >
-            <ListItem className={classes.card}>
-              {/* <div className={css.tweetHeader}> */}
-                  <ListItemAvatar>
-                    {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
-                  <FaceIcon className={classes.icon} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Brunch this weekend?"
-                    secondary={
-                    <React.Fragment>
-                    <Typography component="span" className={classes.inline} color="textPrimary">
-                      Ali Connors
-                    </Typography>
-                      {" — I'll be in your neighborhood doing errands this…"}
-                      </React.Fragment>
-                    }
-                    />
-                {/* </div> */}
-            </ListItem>
 
+          <Link to={`user/${this.props.props.author_id}`} >
+            <ListItem className={classes.card}>
+                    <ListItemAvatar>
+                      {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
+                    <FaceIcon className={classes.icon} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Brunch this weekend?"
+                      secondary={
+                      <React.Fragment>
+                      <Typography component="span" className={classes.inline} color="textPrimary">
+                        Ali Connors
+                      </Typography>
+                        {" — I'll be in your neighborhood doing errands this…"}
+                        </React.Fragment>
+                      }
+                      />
+            </ListItem>
+            </Link>
             <div className={css.contentContainer}>
               {this.props.props.author_id}
               {this.props.props.title}
