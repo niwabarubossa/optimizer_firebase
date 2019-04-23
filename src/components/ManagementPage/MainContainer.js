@@ -24,14 +24,14 @@ class MainContainer extends Component {
             position: "fixed",
             right: 12,
             bottom: 12,
-            zIndex: 2
+            zIndex: 10
         }
 
         return(
             <div className={classes.managementMainContainer}>
                 <MainContent />
 
-                { this.state.showPopup ?
+                {/* { this.state.showPopup ?
                 <ContentsContainer />             
                 :
                 null
@@ -39,7 +39,7 @@ class MainContainer extends Component {
 
                 <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}>
                     <ContentAdd />
-                </FloatingActionButton>
+                </FloatingActionButton> */}
             </div>
         )
     }

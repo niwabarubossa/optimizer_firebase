@@ -40,15 +40,21 @@ class ContentsContainer extends Component {
         const { handleSubmit, pristine, submitting, invalid } = this.props
         const style = { margin: 12 }
         return(
-            <div className={css.contentsContainer}>
-                <div>
-                    <div className={css.tweetForm}>
-                        <form onSubmit={handleSubmit(this.onSubmit)}>
-                            <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
-                            <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
-                            <RaisedButton label="Submit" type="submit" style={style} />
-                        </form>
-                    </div>
+            // <div className={css.contentsContainer}>
+            //     <div>
+            //         <div className={css.tweetForm}>
+            //             <form onSubmit={handleSubmit(this.onSubmit)}>
+            //                 <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
+            //                 <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
+            //                 <RaisedButton label="Submit" type="submit" style={style} />
+            //             </form>
+            //         </div>
+            //     </div>
+            // </div>
+            <div id={css.modalOverlay}>
+                <div id={css.modalContent}>
+                    <p>「閉じる」か「背景」をクリックするとモーダルウィンドウを終了します。</p>
+                    <p><a id={css.modalClose} className={css.buttonLink}>閉じる</a></p>
                 </div>
             </div>
         )
