@@ -55,13 +55,12 @@ class App extends Component {
     const { classes, theme } = this.props;
     return (
       <BrowserRouter>
+          { this.state.showPopup ?
+                    <ContentsContainer />             
+                    :
+                    null
+                  }
             <div className="App" style={{textAlign: 'center',marginTop: '64px'}}>
-
-              { this.state.showPopup ?
-                <ContentsContainer />             
-                :
-                null
-              }
 
               <div className={classes.root}>   
                 <AppBarMain />
