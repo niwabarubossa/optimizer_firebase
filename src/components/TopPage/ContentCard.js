@@ -57,6 +57,8 @@ const styles = theme => ({
 
 class ContentCard extends Component {
     render(){
+      console.log(this.props)
+      console.log(this.props.props)
         const { classes } = this.props;
         return(
           <div className={css.cardContainer} >
@@ -81,7 +83,9 @@ class ContentCard extends Component {
             </ListItem>
 
             <div className={css.contentContainer}>
-                orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+              {this.props.props.author_id}
+              {this.props.props.title}
+              {this.props.props.body}
             </div>
 
             <CardActions className={classes.actions} disableActionSpacing>
