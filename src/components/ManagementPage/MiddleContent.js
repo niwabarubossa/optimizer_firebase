@@ -5,7 +5,7 @@ class MiddleContent extends Component {
     render(){
         return(
             <div className={classes.middleContentContainer}>
-                <ChartContainer />
+                <ChartContainer height={450} />
             </div>
         )
     }

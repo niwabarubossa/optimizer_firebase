@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 import { submitTweet } from '../../actions'
 import Button from '@material-ui/core/Button';
+import css from '../../assets/ContentsContainer.css'
 
 class ContentsContainer extends Component {
     constructor(props){
@@ -39,12 +40,16 @@ class ContentsContainer extends Component {
         const { handleSubmit, pristine, submitting, invalid } = this.props
         const style = { margin: 12 }
         return(
-            <div className="contentsContainer">
-                <form onSubmit={handleSubmit(this.onSubmit)}>
-                    <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
-                    <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
-                    <RaisedButton label="Submit" type="submit" style={style} />
-                </form>
+            <div id={css.modalOverlay}>
+                <div id={css.modalContent}>
+                    <div>
+                        <form onSubmit={handleSubmit(this.onSubmit)}>
+                            <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
+                            <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
+                            <RaisedButton label="Submit" type="submit" style={style} />
+                        </form>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -60,6 +65,3 @@ const mapDispatchToProps = ({ submitTweet })
 export default connect(null, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(ContentsContainer)
 )
-// export default connect(null, mapDispatchToProps)(ContentsContainer)
-
-

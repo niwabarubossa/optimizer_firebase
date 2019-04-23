@@ -29,7 +29,7 @@ class ChartContainer extends Component {
         return(
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
-                  <ResponsiveContainer width="100%" height={450} style={{zIndex: 1}} >
+                  <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <BarChart
                         // margin={{ top: 10, right: 60, left: 20, bottom: 0 }}
                         data={data}

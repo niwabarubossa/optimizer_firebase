@@ -9,6 +9,10 @@ import InNav from './components/appbar/InNav'
 import ManagementPageMainContainer from "./components/ManagementPage/MainContainer";
 import UserPage from './components/UserPage/UserPage'
 
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentsContainer from './components/TopPage/ContentsContainer'
+
 const drawerWidth = 240;
 const styles = theme => ({
   root: {
@@ -27,13 +31,37 @@ const styles = theme => ({
 });
 
 class App extends Component {
+  constructor() {
+      super();
+      this.state = {
+        showPopup: false
+      };
+  }
+  togglePopup() {
+      this.setState({
+        showPopup: !this.state.showPopup
+      });
+  }
 
   render() {
+
+    const AddBtnStyle={
+      position: "fixed",
+      right: 12,
+      bottom: 12,
+      zIndex: 10
+    }
 
     const { classes, theme } = this.props;
     return (
       <BrowserRouter>
+          { this.state.showPopup ?
+                    <ContentsContainer />             
+                    :
+                    null
+                  }
             <div className="App" style={{textAlign: 'center',marginTop: '64px'}}>
+
               <div className={classes.root}>   
                 <AppBarMain />
                 <nav className={classes.drawer}>
@@ -47,7 +75,14 @@ class App extends Component {
                   <Route path="/user/:id" component={UserPage} />
                 </main>
               </div>
+
+              <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}>
+                <ContentAdd />
+              </FloatingActionButton>
+
             </div>
+
+
       </BrowserRouter> 
     );
   }

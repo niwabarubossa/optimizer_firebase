@@ -1,5 +1,7 @@
 .chartContainer{
     margin-top:10px;
+    display: flex;
+    align-items: center;
 }
 .barChart{
 }
@@ -7,6 +9,6 @@
     width:auto;
 }
 .barChartContainer{
-    width: 100%;
+    width: 80%;
     margin:10px auto;
 }
