@@ -12,11 +12,7 @@ class UserPage extends Component {
     render(){
         return(
             <div style={{color: 'black'}}>
-<<<<<<< HEAD
             <h3>this is a match params id</h3>
-=======
-            {/* <h3>aaaaaaaaaaaaaa</h3>
->>>>>>> userPage
                 <h3>{this.props.match.params.id}</h3>
                 <UserPageChild props={this.props} /> */}
                 <UserProfileContainer />
