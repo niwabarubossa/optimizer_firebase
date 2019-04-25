@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "optimizer-60ecc",
-    "optimizer-alias": "optimizer-60ecc"
+    "optimizer-alias": "optimizer-60ecc",
+    "optimizer": "optimizer-60ecc"
   }
 }
