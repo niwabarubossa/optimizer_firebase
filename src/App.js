@@ -70,7 +70,7 @@ class App extends Component {
 
                 <main className={classes.content} style={{textAlign: 'center'}}>
                   <Route exact path="/" component={MainContainer} />
-                  <Route path="/:id" component={TestComponent} />
+                  {/* <Route path="/:id" component={TestComponent} /> */}
                   <Route path="/management" component={ManagementPageMainContainer} />
                   <Route path="/user/:id" component={UserPage} />
                 </main>

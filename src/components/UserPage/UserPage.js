@@ -3,6 +3,7 @@ import { getDisplayUserInformation } from '../../actions'
 import { connect } from 'react-redux'
 import UserPageChild from './UserPageChild'
 import UserProfileContainer from './container/UserProfileContainer'
+import ContentCardContainer from '../TopPage/ContentCardContainer'
 class UserPage extends Component {
 
     componentDidMount(){
@@ -11,10 +12,11 @@ class UserPage extends Component {
 
     render(){
         return(
-            <div style={{color: 'black',display: 'flex',justifyContent: 'center'}}>
+            <div style={{color: 'black',display: 'flex',justifyContent: 'center',flexDirection: 'column'}}>
                 {/* <h3>this is a match params id</h3>
                 <h3>{this.props.match.params.id}</h3> */}
                 <UserProfileContainer props={this.props} />
+                <ContentCardContainer />
             </div>
         )
     }
