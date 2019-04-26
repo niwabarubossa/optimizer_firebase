@@ -86,6 +86,7 @@ class ContentCard extends Component {
               {this.props.props.author_id}
               {this.props.props.title}
               {this.props.props.body}
+              something...
             </div>
 
             <CardActions className={classes.actions} disableActionSpacing>
