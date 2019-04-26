@@ -11,8 +11,11 @@ class ButtonContainer extends Component {
                 <Button variant="contained" color="primary" >
                     Follow
                 </Button>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="primary">
                     Follower
+                </Button>
+                <Button variant="contained" color="primary">
+                    Something
                 </Button>
             </div>
         )
