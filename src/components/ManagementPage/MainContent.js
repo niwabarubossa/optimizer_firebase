@@ -4,6 +4,7 @@ import MiddleContent from './MiddleContent'
 import BottomContent from './BottomContent'
 import ComposedChartContainer from './ComposedChartContainer'
 import classes from '../../assets/managementPage/MainContent.css'
+import RadarChartContainer from './RadarChartContainer'
 
 class MainContent extends Component {
     render(){
@@ -13,6 +14,7 @@ class MainContent extends Component {
                 <MiddleContent />
                 <BottomContent />
                 <ComposedChartContainer height={500} />
+                <RadarChartContainer height={500} />
             </div>
         )
     }
