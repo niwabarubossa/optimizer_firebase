@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { submitTweet } from '../../actions'
 import Button from '@material-ui/core/Button';
 import css from '../../assets/ContentsContainer.css'
+import FileInput from '../FileInput'
 
 class ContentsContainer extends Component {
     constructor(props){

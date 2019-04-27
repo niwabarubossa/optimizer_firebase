@@ -57,8 +57,6 @@ const styles = theme => ({
 
 class ContentCard extends Component {
     render(){
-      console.log(this.props)
-      console.log(this.props.props)
         const { classes } = this.props;
         return(
           <div className={css.cardContainer} >
