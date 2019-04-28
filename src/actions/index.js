@@ -152,8 +152,12 @@ export const getDisplayUserInformationSuccess = (display_user_uid) => {
 }
 
 export const SUBMIT_TEST_IMAGE = 'SUBMIT_TEST_IMAGE'
-export const submitTestImage = ( file ) => async dispatch =>{
-    await storageRef.child('images').put(file).then(function(snapshot) {
-    console.log('Uploaded a blob or file!');
-    });
+export const submitTestImage = ( file, file_name ) => async dispatch =>{
+    await storageRef.child(file_name).put(file).then(function(snapshot) {
+        console.log(snapshot)
+        snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+        });
+        console.log('Uploaded a blob or file!');
+    })
 }

@@ -48,10 +48,10 @@ class ContentsContainer extends Component {
     handleFileSubmit = () => {
         var obj1 = document.getElementById("upfile");
         console.log(obj1.files)
-        var reader = new FileReader();
         var blob = new Blob(obj1.files, { type: "image/jpg" });
         console.warn(blob);
-        this.props.submitTestImage(blob)
+        var file_name = obj1.files[0].name
+        this.props.submitTestImage(blob,file_name)
     }
 
     render(){
