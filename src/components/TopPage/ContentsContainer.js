@@ -37,6 +37,22 @@ class ContentsContainer extends Component {
         console.log(e)
     }
 
+    fileuploder = () => {
+        var obj1 = document.getElementById("upfile");
+        console.log(obj1.files)
+        var reader = new FileReader();
+        reader.readAsDataURL(obj1.files[0]);
+        console.log(reader)
+    }
+
+    handleFileSubmit = () => {
+        var obj1 = document.getElementById("upfile");
+        console.log(obj1.files)
+        var reader = new FileReader();
+        reader.readAsDataURL(obj1.files[0]);
+        console.log(reader)
+    }
+
     render(){
         const { handleSubmit, pristine, submitting, invalid } = this.props
         const style = { margin: 12 }
@@ -49,6 +65,12 @@ class ContentsContainer extends Component {
                             <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
+
+                        <form onSubmit={this.handleFileSubmit.bind(this)}>
+                            <input type="file" name="upfile" id="upfile" onChange={this.fileuploder.bind(this)}/> 
+                            <RaisedButton label="Submit" type="submit" style={style} />
+                        </form>
+
                     </div>
                 </div>
             </div>
