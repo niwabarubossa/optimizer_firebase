@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import { firestore } from '../plugins/firebase'
 import 'firebase/firestore';
+var storage = firebase.storage();
+var storageRef = storage.ref();
 
 export const READTWEETS = 'READTWEETS'
 export const readTweets = () => ({
@@ -147,4 +149,11 @@ export const getDisplayUserInformationSuccess = (display_user_uid) => {
         type: GET_DISPLAY_USER_INFORMATION_SUCCESS,
         display_user_uid: display_user_uid
     }
+}
+
+export const SUBMIT_TEST_IMAGE = 'SUBMIT_TEST_IMAGE'
+export const submitTestImage = ( file ) => async dispatch =>{
+    await storageRef.put(file).then(function(snapshot) {
+    console.log('Uploaded a blob or file!');
+    });
 }
