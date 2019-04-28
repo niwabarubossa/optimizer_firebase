@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
-import { submitTweet } from '../../actions'
+import { submitTweet,submitTestImage } from '../../actions'
 import Button from '@material-ui/core/Button';
 import css from '../../assets/ContentsContainer.css'
 import FileInput from '../FileInput'
@@ -49,8 +49,9 @@ class ContentsContainer extends Component {
         var obj1 = document.getElementById("upfile");
         console.log(obj1.files)
         var reader = new FileReader();
-        reader.readAsDataURL(obj1.files[0]);
-        console.log(reader)
+        var blob = new Blob(obj1.files, { type: "image/jpg" });
+        console.warn(blob);
+        this.props.submitTestImage(blob)
     }
 
     render(){
@@ -67,7 +68,7 @@ class ContentsContainer extends Component {
                         </form>
 
                         <form onSubmit={this.handleFileSubmit.bind(this)}>
-                            <input type="file" name="upfile" id="upfile" onChange={this.fileuploder.bind(this)}/> 
+                            <input type="file" name="upfile" id="upfile" onChange={this.handleFileSubmit.bind(this)}/> 
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
 
@@ -84,7 +85,7 @@ const validate = values => {
     if (!values.body) errors.body = "内容が空です"
     return errors
 }
-const mapDispatchToProps = ({ submitTweet })
+const mapDispatchToProps = ({ submitTweet, submitTestImage })
 export default connect(null, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(ContentsContainer)
 )
