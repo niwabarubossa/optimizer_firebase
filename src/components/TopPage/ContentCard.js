@@ -84,6 +84,7 @@ class ContentCard extends Component {
               {this.props.props.author_id}
               {this.props.props.title}
               {this.props.props.body}
+              <img className={css.tweetImage} src={this.props.props.image_url} ></img>
               something...
             </div>
 
