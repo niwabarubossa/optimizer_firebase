@@ -14,7 +14,6 @@ class ContentsContainer extends Component {
     constructor(props){
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
-        this.firebase_submit = this.firebase_submit.bind(this)
     }
     renderField(field){
         const { input, label, type, meta: {touched, error} } = field   
@@ -31,34 +30,9 @@ class ContentsContainer extends Component {
 
     async onSubmit(values){
         console.log(values.image)
-        // ここで一旦画像を保存させる。　帰ってきた値を values.image_url に代入？
         var blob = new Blob([values.image], { type: "image/jpg" });
         var file_name = values.image.name
         await this.props.submitTestImage(blob,file_name, values)
-        // await this.props.submitTweet(values)
-    }
-    firebase_submit = (e) => {
-        e.preventDefault();
-        console.log(this.props);
-        console.log(e)
-    }
-
-    fileuploder = () => {
-        var obj1 = document.getElementById("upfile");
-        console.log(obj1.files)
-        var reader = new FileReader();
-        reader.readAsDataURL(obj1.files[0]);
-        console.log(reader)
-    }
-
-    handleFileSubmit = () => {
-        var obj1 = document.getElementById("upfile");
-        console.log('this is success blob引数')
-        console.log(obj1.files)
-        var blob = new Blob(obj1.files, { type: "image/jpg" });
-        console.warn(blob);
-        var file_name = obj1.files[0].name
-        this.props.submitTestImage(blob,file_name)
     }
 
     render(){
@@ -76,15 +50,6 @@ class ContentsContainer extends Component {
 
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
-
-
-                        <form onSubmit={this.handleFileSubmit.bind(this)}>
-    
-    <input type="file" name="upfile" id="upfile" onChange={this.handleFileSubmit.bind(this)}/> 
-    
-    <RaisedButton label="Submit" type="submit" style={style} />
-
-                </form>
                     </div>
                 </div>
             </div>
