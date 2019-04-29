@@ -8,6 +8,7 @@ import { submitTweet,submitTestImage } from '../../actions'
 import Button from '@material-ui/core/Button';
 import css from '../../assets/ContentsContainer.css'
 import FileInput from '../FileInput'
+import FieldFileInput from './FieldFileInput'
 
 class ContentsContainer extends Component {
     constructor(props){
@@ -29,7 +30,12 @@ class ContentsContainer extends Component {
     }
 
     async onSubmit(values){
-        await this.props.submitTweet(values)
+        console.log(values.image)
+        // ここで一旦画像を保存させる。　帰ってきた値を values.image_url に代入？
+        var blob = new Blob([values.image], { type: "image/jpg" });
+        var file_name = values.image.name
+        await this.props.submitTestImage(blob,file_name, values)
+        // await this.props.submitTweet(values)
     }
     firebase_submit = (e) => {
         e.preventDefault();
@@ -47,6 +53,7 @@ class ContentsContainer extends Component {
 
     handleFileSubmit = () => {
         var obj1 = document.getElementById("upfile");
+        console.log('this is success blob引数')
         console.log(obj1.files)
         var blob = new Blob(obj1.files, { type: "image/jpg" });
         console.warn(blob);
@@ -55,6 +62,7 @@ class ContentsContainer extends Component {
     }
 
     render(){
+
         const { handleSubmit, pristine, submitting, invalid } = this.props
         const style = { margin: 12 }
         return(
@@ -64,14 +72,19 @@ class ContentsContainer extends Component {
                         <form onSubmit={handleSubmit(this.onSubmit)}>
                             <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
                             <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
+                            <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div>
+
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
+
 
                         <form onSubmit={this.handleFileSubmit.bind(this)}>
-                            <input type="file" name="upfile" id="upfile" onChange={this.handleFileSubmit.bind(this)}/> 
-                            <RaisedButton label="Submit" type="submit" style={style} />
-                        </form>
+    
+    <input type="file" name="upfile" id="upfile" onChange={this.handleFileSubmit.bind(this)}/> 
+    
+    <RaisedButton label="Submit" type="submit" style={style} />
 
+                </form>
                     </div>
                 </div>
             </div>
