@@ -1,6 +1,8 @@
 import firebase from 'firebase';
 import { firestore } from '../plugins/firebase'
 import 'firebase/firestore';
+var storage = firebase.storage();
+var storageRef = storage.ref();
 
 export const READTWEETS = 'READTWEETS'
 export const readTweets = () => ({
@@ -147,4 +149,28 @@ export const getDisplayUserInformationSuccess = (display_user_uid) => {
         type: GET_DISPLAY_USER_INFORMATION_SUCCESS,
         display_user_uid: display_user_uid
     }
+}
+
+export const SUBMIT_TEST_IMAGE = 'SUBMIT_TEST_IMAGE'
+export const submitTestImage = ( file, file_name, values ) => async dispatch =>{
+
+    await storageRef.child(file_name).put(file).then(function(snapshot) {
+        console.log(snapshot)
+        snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+            dispatch(submitImageTweet( values, downloadURL))
+        });
+        console.log('Uploaded a blob or file!');
+    })
+}
+export const SUBMIT_IMAGE_TWEET = 'SUBMIT_IMAGE_TWEET'
+export const submitImageTweet = (input, downloadURL) => async dispatch => {
+    await firestore.collection('tweets').add({
+        title: input.title,
+        body: input.body,
+        image_url: downloadURL,
+        tweet_id: Math.floor(Math.random()*1000000),
+        created_at: new Date(),
+      }).then(() => {
+      });
 }

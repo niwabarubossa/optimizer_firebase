@@ -24,3 +24,7 @@
 a {
     text-decoration: none;
     }
+.tweetImage{
+    width:100%;
+    object-fit: contain;
+}

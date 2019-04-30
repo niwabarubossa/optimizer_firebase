@@ -4,15 +4,16 @@ import { Field, reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
-import { submitTweet } from '../../actions'
+import { submitTweet,submitTestImage } from '../../actions'
 import Button from '@material-ui/core/Button';
 import css from '../../assets/ContentsContainer.css'
+import FileInput from '../FileInput'
+import FieldFileInput from './FieldFileInput'
 
 class ContentsContainer extends Component {
     constructor(props){
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
-        this.firebase_submit = this.firebase_submit.bind(this)
     }
     renderField(field){
         const { input, label, type, meta: {touched, error} } = field   
@@ -28,15 +29,14 @@ class ContentsContainer extends Component {
     }
 
     async onSubmit(values){
-        await this.props.submitTweet(values)
-    }
-    firebase_submit = (e) => {
-        e.preventDefault();
-        console.log(this.props);
-        console.log(e)
+        console.log(values.image)
+        var blob = new Blob([values.image], { type: "image/jpg" });
+        var file_name = values.image.name
+        await this.props.submitTestImage(blob,file_name, values)
     }
 
     render(){
+
         const { handleSubmit, pristine, submitting, invalid } = this.props
         const style = { margin: 12 }
         return(
@@ -46,6 +46,8 @@ class ContentsContainer extends Component {
                         <form onSubmit={handleSubmit(this.onSubmit)}>
                             <div><Field label="Title" name="title" type="text" component={this.renderField} /></div>
                             <div><Field label="Body" name="body" type="text" component={this.renderField} /></div>
+                            <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div>
+
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
                     </div>
@@ -61,7 +63,7 @@ const validate = values => {
     if (!values.body) errors.body = "内容が空です"
     return errors
 }
-const mapDispatchToProps = ({ submitTweet })
+const mapDispatchToProps = ({ submitTweet, submitTestImage })
 export default connect(null, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(ContentsContainer)
 )

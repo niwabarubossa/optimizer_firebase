@@ -57,8 +57,6 @@ const styles = theme => ({
 
 class ContentCard extends Component {
     render(){
-      console.log(this.props)
-      console.log(this.props.props)
         const { classes } = this.props;
         return(
           <div className={css.cardContainer} >
@@ -86,6 +84,7 @@ class ContentCard extends Component {
               {this.props.props.author_id}
               {this.props.props.title}
               {this.props.props.body}
+              <img className={css.tweetImage} src={this.props.props.image_url} ></img>
               something...
             </div>
 
