@@ -49,8 +49,8 @@ class ComposedChartContainer extends Component {
         return(
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
-                  <ResponsiveContainer width="50%" height={this.props.height} style={{zIndex: 1}} >
-                    <RadarChart outerRadius={90} width={730} height={250} data={data}>
+                  <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
+                    <RadarChart outerRadius={90} width="100%" height={250} data={data}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="subject" />
                         <PolarRadiusAxis angle={30} domain={[0, 150]} />
