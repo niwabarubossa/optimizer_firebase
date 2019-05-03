@@ -1,10 +1,12 @@
 import React,{ Component } from 'react'
+import { goodButtonClicked } from '../../actions'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
 import css from '../../assets/mainPage/ContentCard.css';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom'
-
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -56,6 +58,12 @@ const styles = theme => ({
 });
 
 class ContentCard extends Component {
+
+    goodButtonClicked(){
+      // this.props.goodButtonClicked(current_user)
+      console.log(this.props.props.get_id())
+      console.log(this.props.current_user)
+    }
     render(){
         const { classes } = this.props;
         return(
@@ -89,7 +97,7 @@ class ContentCard extends Component {
             </div>
 
             <CardActions className={classes.actions} disableActionSpacing>
-              <IconButton aria-label="Add to favorites">
+              <IconButton aria-label="Add to favorites" onClick={this.goodButtonClicked.bind(this)}>
                 <FavoriteIcon />
               </IconButton>
               <IconButton aria-label="Share">
@@ -106,4 +114,16 @@ class ContentCard extends Component {
     }
 }
 
-export default withStyles(styles)(ContentCard);
+const mapStateToProps = (state) => {    
+  return { 
+	  current_user: state.firebase.current_user
+  }
+}
+const mapDispatchToProps = ({ goodButtonClicked })
+
+export default compose(
+  withStyles(styles,{ withTheme: true }),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+))(ContentCard)

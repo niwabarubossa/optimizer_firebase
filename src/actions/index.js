@@ -21,8 +21,16 @@ export const firebaseLogout = () => ({
     type: FIREBASELOGOUT
 })
 export const SUBMITTWEET = 'SUBMITTEXT'
-export const submitTweet = input => async dispatch => {
-    dispatch({ type: SUBMITTWEET, input: input })
+export const submitTweet = (current_user,input) => async dispatch => {
+    firestore.collection('tweets').add({
+        title: input.title,
+        body: input.body,
+        author_id: current_user.uid,
+        tweet_id: Math.floor(Math.random()*1000000),
+        created_at: new Date(),
+      }).then(() => {
+        dispatch({ type: SUBMITTWEET })
+      });
 }
 export const GET_TWEETS = 'GET_TWEETS'
 export const getTweets = () => ({
@@ -48,6 +56,8 @@ export const getPosts = () => async dispatch => {
     await firestore.collection("tweets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             temperature.push(doc.data())
+            console.log(doc.data())
+            console.log(doc.data().id)
         });
     });
     dispatch(getPostsSuccess(temperature))
@@ -171,6 +181,14 @@ export const submitImageTweet = (input, downloadURL) => async dispatch => {
         image_url: downloadURL,
         tweet_id: Math.floor(Math.random()*1000000),
         created_at: new Date(),
+      }).then(() => {
+      });
+}
+
+export const GOOD_BUTTON_CLICKED = 'GOOD_BUTTON_CLICKED'
+export const goodButtonClicked = ( current_user, tweet_id ) => async dispatch => {
+    await firestore.collection('tweets').doc(tweet_id).collection('liker').add({
+        liker_id: current_user.id
       }).then(() => {
       });
 }
