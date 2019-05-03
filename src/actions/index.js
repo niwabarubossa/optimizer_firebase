@@ -55,9 +55,9 @@ export const getPosts = () => async dispatch => {
     // await firestore.collection("projects").get().then(function(querySnapshot) {
     await firestore.collection("tweets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            temperature.push(doc.data())
-            console.log(doc.data())
-            console.log(doc.data().id)
+            // temperature.push(doc.data())
+            temperature.push(Object.assign(doc.data(), {id: doc.id}))
+            console.log(Object.assign(doc.data(),{id: doc.id}))
         });
     });
     dispatch(getPostsSuccess(temperature))

@@ -89,6 +89,7 @@ class ContentCard extends Component {
             </ListItem>
             </Link>
             <div className={css.contentContainer}>
+              {this.props.props.id}
               {this.props.props.author_id}
               {this.props.props.title}
               {this.props.props.body}
