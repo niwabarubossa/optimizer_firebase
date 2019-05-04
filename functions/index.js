@@ -12,8 +12,12 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 });
 
 exports.addMessage = functions.https.onCall((data, context) => {
-    console.log('呼び出されました')
+    console.log(data)	
+    // { text: 'aaaaaa' }
+    console.log(context)
+    // addMessage({text: 'aaaaaa'}
     const aiueo = 'aiueo'
     return aiueo
+    //{ data: 'aiueo' }
 });
   

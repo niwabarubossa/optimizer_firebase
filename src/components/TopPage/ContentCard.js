@@ -60,9 +60,10 @@ const styles = theme => ({
 class ContentCard extends Component {
 
     goodButtonClicked(){
-      // this.props.goodButtonClicked(current_user)
-      console.log(this.props.props.get_id())
-      console.log(this.props.current_user)
+      this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
+      // console.log(this.props)
+      // console.log(this.props.current_user)
+      // console.log(this.props.props.id)
     }
     render(){
         const { classes } = this.props;

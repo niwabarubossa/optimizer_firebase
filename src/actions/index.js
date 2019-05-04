@@ -58,6 +58,7 @@ export const getPosts = () => async dispatch => {
             // temperature.push(doc.data())
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
             console.log(Object.assign(doc.data(),{id: doc.id}))
+
         });
     });
     dispatch(getPostsSuccess(temperature))
@@ -122,6 +123,13 @@ async function signInWithProvider() {
 
 export const GET_CURRENT_STATE = 'GET_CURRENT_STATE'
 export const getCurrentState = () => {
+
+    var addMessage = firebase.functions().httpsCallable('addMessage');
+        addMessage({text: 'aaaaaa'}).then(function(result) {
+            console.log('function result')
+            console.log(result)
+    });
+
     return {
         type: GET_CURRENT_STATE,
     }
@@ -187,8 +195,37 @@ export const submitImageTweet = (input, downloadURL) => async dispatch => {
 
 export const GOOD_BUTTON_CLICKED = 'GOOD_BUTTON_CLICKED'
 export const goodButtonClicked = ( current_user, tweet_id ) => async dispatch => {
-    await firestore.collection('tweets').doc(tweet_id).collection('liker').add({
-        liker_id: current_user.id
+    // await firestore.collection('tweets').doc(tweet_id).collection('liker').add({
+    //     liker_id: current_user.uid
+    //   }).then(() => {
+    //   });
+    await firestore.collection('tweets').doc(tweet_id).collection('liker').doc(current_user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            dispatch(removeUserFromLiker( current_user, tweet_id))
+        } else {
+            // doc.data() will be undefined in this case
+            dispatch(addUserToLiker( current_user, tweet_id))
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+export const addUserToLiker = ( current_user, tweet_id ) => async dispatch => {
+    await firestore.collection('tweets').doc(tweet_id).collection('liker').doc(current_user.uid).set({
+        liker_id: current_user.uid
       }).then(() => {
-      });
+    });
+}
+
+export const REMOVE_USER_FROM_LIKER = 'REMOVE_USER_FROM_LIKER'
+export const removeUserFromLiker = ( current_user, tweet_id ) => async dispatch => {
+    await firestore.collection("tweets").doc(tweet_id).collection('liker').doc(current_user.uid).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    
 }
