@@ -2,6 +2,7 @@ import React,{ Component } from 'react'
 import { goodButtonClicked } from '../../actions'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { firestore } from '../../plugins/firebase'
 import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
 import css from '../../assets/mainPage/ContentCard.css';
@@ -41,6 +42,10 @@ const styles = theme => ({
       width: '40px',
       height: '40px'
   },
+  uwaa: {
+    color: 'colorPrimary',
+    backgroundColor: 'primary'
+  },
   card: {
     height: 'auto'
   },
@@ -58,6 +63,22 @@ const styles = theme => ({
 });
 
 class ContentCard extends Component {
+
+    async componentDidUpdate(){
+      await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
+        if (doc.exists) {
+        } else {
+            console.log("No such document!");
+        }
+        }).catch(function(error) {
+            this.props.props.like = false
+            console.log("Error getting document:", error);
+        });
+    }
+
+    changeToTrue(){
+      this.props.like = true
+    }
 
     goodButtonClicked(){
       this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
@@ -95,9 +116,19 @@ class ContentCard extends Component {
             </div>
 
             <CardActions className={classes.actions} disableActionSpacing>
-              <IconButton aria-label="Add to favorites" onClick={this.goodButtonClicked.bind(this)}>
-                <FavoriteIcon />
-              </IconButton>
+              { this.props.like ?
+                <IconButton aria-label="Add to favorites" className={classes.uwaa}
+                  color="secondary"
+                  onClick={this.goodButtonClicked.bind(this)}>
+                  <FavoriteIcon />
+                </IconButton>
+                :
+                <IconButton aria-label="Add to favorites" className={classes.uwaa}
+                  color="primary"
+                  onClick={this.goodButtonClicked.bind(this)}>
+                  <FavoriteIcon />
+                </IconButton>
+              }
               <IconButton aria-label="Share">
                 <ShareIcon />
               </IconButton>
