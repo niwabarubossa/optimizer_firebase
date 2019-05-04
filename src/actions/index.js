@@ -195,16 +195,11 @@ export const submitImageTweet = (input, downloadURL) => async dispatch => {
 
 export const GOOD_BUTTON_CLICKED = 'GOOD_BUTTON_CLICKED'
 export const goodButtonClicked = ( current_user, tweet_id ) => async dispatch => {
-    // await firestore.collection('tweets').doc(tweet_id).collection('liker').add({
-    //     liker_id: current_user.uid
-    //   }).then(() => {
-    //   });
     await firestore.collection('tweets').doc(tweet_id).collection('liker').doc(current_user.uid).get().then(function(doc) {
         if (doc.exists) {
             console.log("Document data:", doc.data());
             dispatch(removeUserFromLiker( current_user, tweet_id))
         } else {
-            // doc.data() will be undefined in this case
             dispatch(addUserToLiker( current_user, tweet_id))
             console.log("No such document!");
         }

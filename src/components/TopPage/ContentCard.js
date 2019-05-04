@@ -61,9 +61,6 @@ class ContentCard extends Component {
 
     goodButtonClicked(){
       this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
-      // console.log(this.props)
-      // console.log(this.props.current_user)
-      // console.log(this.props.props.id)
     }
     render(){
         const { classes } = this.props;
@@ -73,7 +70,6 @@ class ContentCard extends Component {
           <Link to={`user/${this.props.props.author_id}`} >
             <ListItem className={classes.card}>
                     <ListItemAvatar>
-                      {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
                     <FaceIcon className={classes.icon} />
                     </ListItemAvatar>
                     <ListItemText
