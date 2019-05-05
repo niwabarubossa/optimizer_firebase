@@ -1,7 +1,8 @@
 import React,{ Component } from 'react'
-import { goodButtonClicked } from '../../actions'
+import { goodButtonClicked, combineGoodDataToTweet } from '../../actions'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import FavIconContainer from './FavIcon'
 import { firestore } from '../../plugins/firebase'
 import Card from '@material-ui/core/Card';
 import { CardContent } from '@material-ui/core';
@@ -62,32 +63,36 @@ const styles = theme => ({
   },
 });
 
+
 class ContentCard extends Component {
 
-    async componentDidUpdate(){
+    async componentWillMount(){
+      // await this.props.combineGoodDataToTweet( this.props.props, this.props.current_user)
+      // console.log(this.props.props)
+      // console.log(this.props.props.like)
       await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
         if (doc.exists) {
+          console.log('like exist')
         } else {
-            console.log("No such document!");
+          console.log('like does not exist')
         }
-        }).catch(function(error) {
-            this.props.props.like = false
+    }).catch(function(error) {
             console.log("Error getting document:", error);
-        });
+    });
     }
 
-    changeToTrue(){
-      this.props.like = true
-    }
 
-    goodButtonClicked(){
-      this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
+    async goodButtonClicked(){
+      // await this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
+      // await this.props.combineGoodDataToTweet( this.props.props, this.props.current_user)
+      // console.log(this.props.props)
+      // console.log(this.props.props.like)
     }
     render(){
         const { classes } = this.props;
         return(
           <div className={css.cardContainer} >
-
+          <h1>{this.aiueo}</h1>
           <Link to={`user/${this.props.props.author_id}`} >
             <ListItem className={classes.card}>
                     <ListItemAvatar>
@@ -116,19 +121,18 @@ class ContentCard extends Component {
             </div>
 
             <CardActions className={classes.actions} disableActionSpacing>
-              { this.props.like ?
+
+            <FavIconContainer like={this.props.props.like} />
                 <IconButton aria-label="Add to favorites" className={classes.uwaa}
                   color="secondary"
                   onClick={this.goodButtonClicked.bind(this)}>
                   <FavoriteIcon />
                 </IconButton>
-                :
-                <IconButton aria-label="Add to favorites" className={classes.uwaa}
+                {/* <IconButton aria-label="Add to favorites" className={classes.uwaa}
                   color="primary"
                   onClick={this.goodButtonClicked.bind(this)}>
                   <FavoriteIcon />
-                </IconButton>
-              }
+                </IconButton> */}
               <IconButton aria-label="Share">
                 <ShareIcon />
               </IconButton>
@@ -145,10 +149,10 @@ class ContentCard extends Component {
 
 const mapStateToProps = (state) => {    
   return { 
-	  current_user: state.firebase.current_user
+    current_user: state.firebase.current_user,
   }
 }
-const mapDispatchToProps = ({ goodButtonClicked })
+const mapDispatchToProps = ({ goodButtonClicked, combineGoodDataToTweet })
 
 export default compose(
   withStyles(styles,{ withTheme: true }),

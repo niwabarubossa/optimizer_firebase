@@ -17,7 +17,7 @@ class ContentCardContainer extends Component {
                 { this.props.state_posts && this.props.state_posts.map(project => {
                     return (
                         <div key={project.tweet_id}>
-                            <ContentCard props={project} like={false} />
+                            <ContentCard props={project} />
                         </div>
                     )
                 })}  
