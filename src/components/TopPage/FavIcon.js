@@ -4,7 +4,6 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class FavIconContainer extends Component {
     render(){
-        console.log('children rendering..')
         return(
             <div onClick={this.props.goodButtonClicked}>
                 {this.props.local_like_state ?

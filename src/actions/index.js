@@ -221,22 +221,3 @@ export const removeUserFromLiker = ( current_user, tweet_id ) => async dispatch 
     });
     
 }
-
-export const COMBINE_GOOD_TRUE_DATA_TO_TWEET = 'COMBINE_GOOD_TRUE_DATA_TO_TWEET'
-export const COMBINE_GOOD_FALSE_DATA_TO_TWEET = 'COMBINE_GOOD_FALSE_DATA_TO_TWEET'
-export const COMBINE_GOOD_DATA_TO_TWEET = 'COMBINE_GOOD_DATA_TO_TWEET'
-export const combineGoodDataToTweet = ( tweet_data, current_user ) => async dispatch => {
-    await firestore.collection('tweets').doc(tweet_data.id).collection('liker').doc(current_user.uid).get().then(function(doc) {
-        if (doc.exists) {
-            dispatch({ type: COMBINE_GOOD_TRUE_DATA_TO_TWEET,
-                       tweet_data: tweet_data
-                    })
-        } else {
-            dispatch({ type: COMBINE_GOOD_FALSE_DATA_TO_TWEET,
-                       tweet_data: tweet_data 
-             })
-        }
-    }).catch(function(error) {
-            console.log("Error getting document:", error);
-    });
-}

@@ -104,10 +104,6 @@ export default ( state = [initialState] , action ) => {
             return state
         case GOOD_BUTTON_CLICKED:
             return state
-        case COMBINE_GOOD_TRUE_DATA_TO_TWEET:
-            return state
-        case COMBINE_GOOD_FALSE_DATA_TO_TWEET:
-            return state
         default: 
             return state
     }

@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { goodButtonClicked, combineGoodDataToTweet } from '../../actions'
+import { goodButtonClicked } from '../../actions'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import FavIconContainer from './FavIcon'
@@ -142,8 +142,7 @@ const mapStateToProps = (state) => {
     current_user: state.firebase.current_user,
   }
 }
-const mapDispatchToProps = ({ goodButtonClicked, combineGoodDataToTweet })
-
+const mapDispatchToProps = ({ goodButtonClicked })
 export default compose(
   withStyles(styles,{ withTheme: true }),
   connect(
