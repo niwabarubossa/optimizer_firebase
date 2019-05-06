@@ -21,8 +21,16 @@ export const firebaseLogout = () => ({
     type: FIREBASELOGOUT
 })
 export const SUBMITTWEET = 'SUBMITTEXT'
-export const submitTweet = input => async dispatch => {
-    dispatch({ type: SUBMITTWEET, input: input })
+export const submitTweet = (current_user,input) => async dispatch => {
+    firestore.collection('tweets').add({
+        title: input.title,
+        body: input.body,
+        author_id: current_user.uid,
+        tweet_id: Math.floor(Math.random()*1000000),
+        created_at: new Date(),
+      }).then(() => {
+        dispatch({ type: SUBMITTWEET })
+      });
 }
 export const GET_TWEETS = 'GET_TWEETS'
 export const getTweets = () => ({
@@ -47,7 +55,7 @@ export const getPosts = () => async dispatch => {
     // await firestore.collection("projects").get().then(function(querySnapshot) {
     await firestore.collection("tweets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            temperature.push(doc.data())
+            temperature.push(Object.assign(doc.data(), {id: doc.id}))
         });
     });
     dispatch(getPostsSuccess(temperature))
@@ -112,6 +120,13 @@ async function signInWithProvider() {
 
 export const GET_CURRENT_STATE = 'GET_CURRENT_STATE'
 export const getCurrentState = () => {
+
+    var addMessage = firebase.functions().httpsCallable('addMessage');
+        addMessage({text: 'aaaaaa'}).then(function(result) {
+            console.log('function result')
+            console.log(result)
+    });
+
     return {
         type: GET_CURRENT_STATE,
     }
@@ -173,4 +188,55 @@ export const submitImageTweet = (input, downloadURL) => async dispatch => {
         created_at: new Date(),
       }).then(() => {
       });
+}
+
+export const GOOD_BUTTON_CLICKED = 'GOOD_BUTTON_CLICKED'
+export const goodButtonClicked = ( current_user, tweet_id ) => async dispatch => {
+    await firestore.collection('tweets').doc(tweet_id).collection('liker').doc(current_user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            dispatch(removeUserFromLiker( current_user, tweet_id))
+        } else {
+            dispatch(addUserToLiker( current_user, tweet_id))
+            console.log('add user success')
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+export const addUserToLiker = ( current_user, tweet_id ) => async dispatch => {
+    await firestore.collection('tweets').doc(tweet_id).collection('liker').doc(current_user.uid).set({
+        liker_id: current_user.uid
+      }).then(() => {
+    });
+}
+
+export const REMOVE_USER_FROM_LIKER = 'REMOVE_USER_FROM_LIKER'
+export const removeUserFromLiker = ( current_user, tweet_id ) => async dispatch => {
+    await firestore.collection("tweets").doc(tweet_id).collection('liker').doc(current_user.uid).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    
+}
+
+export const COMBINE_GOOD_TRUE_DATA_TO_TWEET = 'COMBINE_GOOD_TRUE_DATA_TO_TWEET'
+export const COMBINE_GOOD_FALSE_DATA_TO_TWEET = 'COMBINE_GOOD_FALSE_DATA_TO_TWEET'
+export const COMBINE_GOOD_DATA_TO_TWEET = 'COMBINE_GOOD_DATA_TO_TWEET'
+export const combineGoodDataToTweet = ( tweet_data, current_user ) => async dispatch => {
+    await firestore.collection('tweets').doc(tweet_data.id).collection('liker').doc(current_user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            dispatch({ type: COMBINE_GOOD_TRUE_DATA_TO_TWEET,
+                       tweet_data: tweet_data
+                    })
+        } else {
+            dispatch({ type: COMBINE_GOOD_FALSE_DATA_TO_TWEET,
+                       tweet_data: tweet_data 
+             })
+        }
+    }).catch(function(error) {
+            console.log("Error getting document:", error);
+    });
 }

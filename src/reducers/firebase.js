@@ -1,5 +1,5 @@
 import { 
-    FIREBASELOGIN,LOGINSTATUS,FIREBASELOGOUT,SUBMITTWEET,GET_TWEETS,GET_POSTS_REQUEST, GET_POSTS_SUCCESS,HANDLE_DRAWER_TOGGLE,HANDLE_DRAWER_TOGGLE_RESET, LOGIN_WITH_TWITTER, LOGIN_WITH_TWITTER_SUCCESS, GET_CURRENT_STATE,GET_USER_INFORMATION,GET_USER_INFORMATION_SUCCESS, GET_DISPLAY_USER_INFORMATION, GET_DISPLAY_USER_INFORMATION_SUCCESS, SUBMIT_TEST_IMAGE, SUBMIT_IMAGE_TWEET
+    FIREBASELOGIN,LOGINSTATUS,FIREBASELOGOUT,SUBMITTWEET,GET_TWEETS,GET_POSTS_REQUEST, GET_POSTS_SUCCESS,HANDLE_DRAWER_TOGGLE,HANDLE_DRAWER_TOGGLE_RESET, LOGIN_WITH_TWITTER, LOGIN_WITH_TWITTER_SUCCESS, GET_CURRENT_STATE,GET_USER_INFORMATION,GET_USER_INFORMATION_SUCCESS, GET_DISPLAY_USER_INFORMATION, GET_DISPLAY_USER_INFORMATION_SUCCESS, SUBMIT_TEST_IMAGE, SUBMIT_IMAGE_TWEET, GOOD_BUTTON_CLICKED, COMBINE_GOOD_DATA_TO_TWEET, COMBINE_GOOD_TRUE_DATA_TO_TWEET ,COMBINE_GOOD_FALSE_DATA_TO_TWEET
  } from '../actions'
 import firebase from 'firebase';
 import { firestore } from '../plugins/firebase'
@@ -13,6 +13,7 @@ const initialState = {
   }
 
 export default ( state = [initialState] , action ) => {
+    console.log(action)
     switch(action.type){
         case FIREBASELOGIN:
             console.log('----------------------firebase login action-----------------------')
@@ -37,14 +38,6 @@ export default ( state = [initialState] , action ) => {
             });
             return state
         case SUBMITTWEET:
-            firestore.collection('tweets').add({
-                title: action.input.title,
-                body: action.input.body,
-                author_id: state.current_user.uid,
-                tweet_id: Math.floor(Math.random()*1000000),
-                created_at: new Date(),
-              }).then(() => {
-              });
             return state 
         case GET_TWEETS:
             const temperature = []
@@ -108,6 +101,12 @@ export default ( state = [initialState] , action ) => {
         case SUBMIT_TEST_IMAGE:
             return state
         case SUBMIT_IMAGE_TWEET:
+            return state
+        case GOOD_BUTTON_CLICKED:
+            return state
+        case COMBINE_GOOD_TRUE_DATA_TO_TWEET:
+            return state
+        case COMBINE_GOOD_FALSE_DATA_TO_TWEET:
             return state
         default: 
             return state

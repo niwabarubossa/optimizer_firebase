@@ -30,9 +30,10 @@ class ContentsContainer extends Component {
 
     async onSubmit(values){
         console.log(values.image)
-        var blob = new Blob([values.image], { type: "image/jpg" });
-        var file_name = values.image.name
-        await this.props.submitTestImage(blob,file_name, values)
+        // var blob = new Blob([values.image], { type: "image/jpg" });
+        // var file_name = values.image.name
+        await this.props.submitTweet(this.props.current_user,values)
+        // await this.props.submitTestImage(blob,file_name, values)
     }
 
     render(){
@@ -63,7 +64,12 @@ const validate = values => {
     if (!values.body) errors.body = "内容が空です"
     return errors
 }
+const mapStateToProps = (state) => {    
+    return { 
+        current_user: state.firebase.current_user
+    }
+  }
 const mapDispatchToProps = ({ submitTweet, submitTestImage })
-export default connect(null, mapDispatchToProps)(
+export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(ContentsContainer)
 )
