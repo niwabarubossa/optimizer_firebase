@@ -4,31 +4,19 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import FavIconContainer from './FavIcon'
 import { firestore } from '../../plugins/firebase'
-import Card from '@material-ui/core/Card';
-import { CardContent } from '@material-ui/core';
 import css from '../../assets/mainPage/ContentCard.css';
-import classnames from 'classnames';
 import { Link } from 'react-router-dom'
-import CardHeader from '@material-ui/core/CardHeader';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import red from '@material-ui/core/colors/red';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import Comment from '@material-ui/icons/Comment';
-import Autorenew from '@material-ui/icons/Autorenew';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CardActions from '@material-ui/core/CardActions';
 import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import FaceIcon from '@material-ui/icons/Face';
 import Divider from '@material-ui/core/Divider';
-
 
 const styles = theme => ({
   root: {
@@ -42,10 +30,6 @@ const styles = theme => ({
   icon: {
       width: '40px',
       height: '40px'
-  },
-  uwaa: {
-    color: 'colorPrimary',
-    backgroundColor: 'primary'
   },
   card: {
     height: 'auto'
@@ -63,31 +47,44 @@ const styles = theme => ({
   },
 });
 
-
 class ContentCard extends Component {
 
-    async componentWillMount(){
-      // await this.props.combineGoodDataToTweet( this.props.props, this.props.current_user)
-      // console.log(this.props.props)
-      // console.log(this.props.props.like)
-      await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
-        if (doc.exists) {
-          console.log('like exist')
-        } else {
-          console.log('like does not exist')
+      constructor(props) {
+        super(props);
+        this.state = {
+          local_state_like: null
         }
-    }).catch(function(error) {
-            console.log("Error getting document:", error);
-    });
-    }
+      }
 
+    async componentWillMount(){
+      var aiueo = null
+      await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
+          if (doc.exists) {
+            aiueo = true
+          } else {
+            aiueo = false
+          }
+      }).catch(function(error) {
+              console.log("Error getting document:", error);
+      });
+      this.setState({ local_state_like: aiueo})
+    }
 
     async goodButtonClicked(){
-      // await this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
-      // await this.props.combineGoodDataToTweet( this.props.props, this.props.current_user)
-      // console.log(this.props.props)
-      // console.log(this.props.props.like)
+      await this.props.goodButtonClicked(this.props.current_user,this.props.props.id)
+      var aiueo = null
+      await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
+          if (doc.exists) {
+            aiueo = true
+          } else {
+            aiueo = false
+          }
+      }).catch(function(error) {
+              console.log("Error getting document:", error);
+      });
+      this.setState({ local_state_like: aiueo})
     }
+
     render(){
         const { classes } = this.props;
         return(
@@ -110,7 +107,7 @@ class ContentCard extends Component {
                       }
                       />
             </ListItem>
-            </Link>
+          </Link>
             <div className={css.contentContainer}>
               {this.props.props.id}
               {this.props.props.author_id}
@@ -122,17 +119,10 @@ class ContentCard extends Component {
 
             <CardActions className={classes.actions} disableActionSpacing>
 
-            <FavIconContainer like={this.props.props.like} />
-                <IconButton aria-label="Add to favorites" className={classes.uwaa}
-                  color="secondary"
-                  onClick={this.goodButtonClicked.bind(this)}>
-                  <FavoriteIcon />
-                </IconButton>
-                {/* <IconButton aria-label="Add to favorites" className={classes.uwaa}
-                  color="primary"
-                  onClick={this.goodButtonClicked.bind(this)}>
-                  <FavoriteIcon />
-                </IconButton> */}
+            <FavIconContainer 
+              local_like_state = {this.state.local_state_like}
+              goodButtonClicked={() => this.goodButtonClicked()} />
+              
               <IconButton aria-label="Share">
                 <ShareIcon />
               </IconButton>
