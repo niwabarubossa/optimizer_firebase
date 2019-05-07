@@ -125,8 +125,7 @@ export const getCurrentState = () => {
         addMessage({text: 'aaaaaa'}).then(function(result) {
             console.log('function result')
             console.log(result)
-    });
-
+         });
     return {
         type: GET_CURRENT_STATE,
     }
@@ -208,6 +207,7 @@ export const goodButtonClicked = ( current_user, tweet_id ) => async dispatch =>
 export const addUserToLiker = ( current_user, tweet_id ) => async dispatch => {
     await firestore.collection('tweets').doc(tweet_id).collection('liker').doc(current_user.uid).set({
         liker_id: current_user.uid
+        //parent_tweet_id: tweet_id これによりcloud functions で親のlikecount　を更新できるように
       }).then(() => {
     });
 }
