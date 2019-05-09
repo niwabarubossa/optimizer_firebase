@@ -22,16 +22,37 @@ export const firebaseLogout = () => ({
 })
 export const SUBMITTWEET = 'SUBMITTEXT'
 export const submitTweet = (current_user,input) => async dispatch => {
-    firestore.collection('tweets').add({
+    var tweet_id = ''
+    var tweet_data = {
         title: input.title,
         body: input.body,
         author_id: current_user.uid,
         tweet_id: Math.floor(Math.random()*1000000),
         created_at: new Date(),
-      }).then(() => {
-        dispatch({ type: SUBMITTWEET })
-      });
+    }
+    await firestore.collection('users').doc(current_user.uid).collection('timeline').add(tweet_data).then((docRef) => {
+        tweet_id = docRef.id
+    });
+
+    const follower_id = []
+    await firestore.collection('users').doc(current_user.uid).collection('followers').get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            follower_id.push(doc.data().follower_id)
+        });
+    });
+    var batch = firestore.batch();
+    var follower_count = follower_id.length
+    var i = 0;
+    for( i =0; i< follower_count; i++){
+        var follower_inboxRef = firestore.collection('users').doc(follower_id[i]).collection('inbox').doc(tweet_id)
+        batch.set(follower_inboxRef, tweet_data);
+    }
+    batch.commit().then(function() {
+        console.log('batch success')
+    });
+    dispatch({ type: SUBMITTWEET })
 }
+
 export const GET_TWEETS = 'GET_TWEETS'
 export const getTweets = () => ({
     type: GET_TWEETS
