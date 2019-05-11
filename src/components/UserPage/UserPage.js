@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import UserPageChild from './UserPageChild'
 import UserProfileContainer from './container/UserProfileContainer'
 import ContentCardContainer from '../TopPage/ContentCardContainer'
+import UserTweetsContainer from './container/UserTweetsContainer'
+import {Grid} from "@material-ui/core"
+
 class UserPage extends Component {
 
     componentDidMount(){
@@ -13,10 +16,14 @@ class UserPage extends Component {
     render(){
         return(
             <div style={{color: 'black',display: 'flex',justifyContent: 'center',flexDirection: 'column'}}>
-                {/* <h3>this is a match params id</h3>
-                <h3>{this.props.match.params.id}</h3> */}
                 <UserProfileContainer props={this.props} />
-                <ContentCardContainer />
+                <Grid container spacing={16} >
+                    <Grid item xs={12} md={7}>
+                        <UserTweetsContainer />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
