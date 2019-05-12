@@ -7,16 +7,19 @@ import css from '../../../assets/userPage/container/ButtonContainer.css'
 class ButtonContainer extends Component {
     render(){
         return(
-            <div>
-                <Button variant="contained" color="primary" >
-                    Follow
-                </Button>
-                <Button variant="contained" color="primary">
-                    Follower
-                </Button>
-                <Button variant="contained" color="primary">
-                    Something
-                </Button>
+            <div className={css.buttonContainer}>
+                <div>
+                    フォロー
+                    <p className={css.counter}>801人</p>
+                </div>
+                <div>
+                    フォロワー
+                    <p className={css.counter}>801人</p>
+                </div>
+                <div>
+                    ツイート
+                    <p className={css.counter}>801</p>
+                </div>
             </div>
         )
     }
