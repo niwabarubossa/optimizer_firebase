@@ -1,6 +1,7 @@
 .userProfileContainer{
     border:solid 1px gray;
     height:auto;
-    width: 80%;
+    width: 100%;
     justify-content: center;
+    padding: 10px;
 }
