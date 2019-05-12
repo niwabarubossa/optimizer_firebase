@@ -30,7 +30,8 @@ class ComposedChartContainer extends Component {
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
-                    <ComposedChart width="100%" height={250} data={data}>
+                    {/* <ComposedChart width="100%" height={250} data={data}> */}
+                    <ComposedChart height={250} data={data}>
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />

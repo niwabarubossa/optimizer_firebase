@@ -14,14 +14,14 @@ class MainContent extends Component {
                 <TopContent />
                 <MiddleContent />
                 <BottomContent />
-                <Grid container spacing={16} >
+                {/* <Grid container spacing={16} >
                     <Grid item xs={12} md={6}>
                         <ComposedChartContainer height={500} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <RadarChartContainer height={500} />
                     </Grid>
-                </Grid>
+                </Grid> */}
             </div>
         )
     }
