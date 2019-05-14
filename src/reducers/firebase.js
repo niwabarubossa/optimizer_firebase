@@ -95,8 +95,10 @@ export default ( state = [initialState] , action ) => {
         case GET_DISPLAY_USER_INFORMATION:
             return state
         case GET_DISPLAY_USER_INFORMATION_SUCCESS:
+            console.log(' in reducer')
+            console.log(action.display_user_uid)
             return Object.assign({}, state, {
-                display_user_uid: action.display_user_uid
+                display_user: action.display_user
             })
         case SUBMIT_TEST_IMAGE:
             return state

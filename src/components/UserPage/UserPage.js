@@ -9,11 +9,13 @@ import {Grid} from "@material-ui/core"
 
 class UserPage extends Component {
 
-    componentDidMount(){
-        this.props.getDisplayUserInformation(this.props.match.params.id)
+    async componentDidMount(){
+        console.log(this.props.match.params.id)
+        await this.props.getDisplayUserInformation(this.props.match.params.id)
     }
-
+    
     render(){
+        console.log(this.props.match)
         return(
             <div style={{color: 'black',display: 'flex',justifyContent: 'center',flexDirection: 'column'}}>
                 <UserProfileContainer props={this.props} />
