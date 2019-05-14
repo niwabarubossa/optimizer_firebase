@@ -9,9 +9,6 @@ import { connect } from 'react-redux'
 class ButtonContainer extends Component {
 
     async clicked(){
-        console.log(this.props.current_user)
-        console.log(this.props.display_user)
-        console.log(this.props.display_user.uid)
         await this.props.followButtonClicked( this.props.current_user , this.props.display_user)
     }
 
