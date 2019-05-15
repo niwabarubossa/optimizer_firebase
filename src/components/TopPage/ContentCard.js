@@ -113,11 +113,10 @@ class ContentCard extends Component {
               {this.props.props.author_id}
               {this.props.props.title}
               {this.props.props.body}
-              <img className={css.tweetImage} src={this.props.props.image_url} ></img>
-              something...
+              {/* <img className={css.tweetImage} src={this.props.props.image_url} ></img> */}
             </div>
 
-            <CardActions className={classes.actions} disableActionSpacing>
+            {/* <CardActions className={classes.actions} disableActionSpacing>
 
             <FavIconContainer 
               local_like_state = {this.state.local_state_like}
@@ -129,7 +128,7 @@ class ContentCard extends Component {
               <IconButton aria-label="Share">
                 <Comment />
               </IconButton>
-            </CardActions>
+            </CardActions> */}
 
             <Divider />
           </div>

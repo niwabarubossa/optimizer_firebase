@@ -17,7 +17,7 @@ class UserProfileContainer extends Component {
             <div className={css.userProfileContainer}>
                 <UserImage />
                 <UserInformation />
-                <ButtonContainer />
+                {/* <ButtonContainer /> */}
             </div>
         )
     }

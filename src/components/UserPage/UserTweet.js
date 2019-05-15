@@ -85,10 +85,9 @@ class UserTweet extends Component {
               {this.props.props.title}
               {this.props.props.body}
               <img className={css.tweetImage} src={this.props.props.image_url} ></img>
-              something...
             </div>
 
-            <CardActions className={classes.actions} disableActionSpacing>
+            {/* <CardActions className={classes.actions} disableActionSpacing>
               <IconButton aria-label="Add to favorites">
                 <FavoriteIcon />
               </IconButton>
@@ -98,7 +97,7 @@ class UserTweet extends Component {
               <IconButton aria-label="Share">
                 <Comment />
               </IconButton>
-            </CardActions>
+            </CardActions> */}
 
             <Divider />
           </div>
