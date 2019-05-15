@@ -153,16 +153,17 @@ export const GET_DISPLAY_USER_INFORMATION = 'GET_DISPLAY_USER_INFORMATION'
 export const getDisplayUserInformation = (uid) => async dispatch => {
     await firestore.collection("users").where("uid","==",uid).get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
+            console.log('action index in get display user information')
             console.log(doc.data())
-            dispatch(getDisplayUserInformationSuccess(doc.data().uid))
+            dispatch(getDisplayUserInformationSuccess(doc.data()))
         });
     });
 };
 export const GET_DISPLAY_USER_INFORMATION_SUCCESS = 'GET_DISPLAY_USER_INFORMATION_SUCCESS'
-export const getDisplayUserInformationSuccess = (display_user_uid) => {  
+export const getDisplayUserInformationSuccess = (display_user) => {  
     return {
         type: GET_DISPLAY_USER_INFORMATION_SUCCESS,
-        display_user_uid: display_user_uid
+        display_user: display_user
     }
 }
 
@@ -220,4 +221,45 @@ export const removeUserFromLiker = ( current_user, tweet_id ) => async dispatch 
         console.error("Error removing document: ", error);
     });
     
+}
+
+
+export const FOLLOW_BUTTON_CLICKED = 'FOLLOW_BUTTON_CLICKED'
+export const followButtonClicked = ( current_user, followed_user ) => async dispatch => {
+    await firestore.collection('users').doc(followed_user.uid).collection('followers').doc(current_user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            dispatch(removeUserFromFollow( current_user, followed_user ))
+        } else {
+            dispatch(addUserToFollow( current_user, followed_user ))
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+export const addUserToFollow = ( current_user, followed_user ) => async dispatch => {
+    await firestore.collection('users').doc(followed_user.uid).collection('followers').doc(current_user.uid).set({
+        follower_id: current_user.uid
+      }).then(() => {
+        console.log('add user to followers success')
+    });
+    await firestore.collection('users').doc(current_user.uid).collection('follow').doc(followed_user.uid).set({
+        follow_id: followed_user.uid
+      }).then(() => {
+        console.log('add user to follower success')
+    });
+}
+
+export const REMOVE_USER_FROM_FOLLOW = 'REMOVE_USER_FROM_FOLLOW'
+export const removeUserFromFollow = ( current_user, followed_user ) => async dispatch => {
+    await firestore.collection("users").doc(followed_user.uid).collection('followers').doc(current_user.uid).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    await firestore.collection("users").doc(current_user.uid).collection('follow').doc(followed_user.uid).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
 }
