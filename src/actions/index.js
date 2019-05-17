@@ -23,7 +23,8 @@ export const firebaseLogout = () => ({
 export const SUBMITTWEET = 'SUBMITTEXT'
 export const submitTweet = (current_user,input) => async dispatch => {
     firestore.collection('tweets').add({
-        title: input.title,
+        // score: input.score,
+        score: parseInt(input.score,10),
         body: input.body,
         author_id: current_user.uid,
         tweet_id: Math.floor(Math.random()*1000000),

@@ -57,3 +57,28 @@
 	cursor:pointer;
 	color:#f00;
 }
+.textField{
+    width:50%;
+}
+.textFieldContainer{
+    height:300px;
+    background-color: skyblue;
+}
+.inputContent{
+    height:100px;
+    width:100%;
+    margin-bottom: 10px;
+}
+.inputScore{
+    height:25px;
+    width:100%;
+    margin-bottom: 10px;   
+}
+.form{
+    display:flex;
+    justify-content: center; 
+    flex-direction: column;
+}
+.formContainer{
+    height:100%;
+}
