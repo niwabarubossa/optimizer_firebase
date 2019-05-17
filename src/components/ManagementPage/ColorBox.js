@@ -9,7 +9,7 @@ class ColorBox extends Component {
             <React.Fragment>
                 <div className={classes.colorBoxContainer}>
                     <div className={classes.colorBox} style={this.props.style}>
-                        <ColorBoxContent />
+                        <ColorBoxContent header={this.props.header} score={this.props.score} />
                     </div>
                 </div>
             </React.Fragment>
