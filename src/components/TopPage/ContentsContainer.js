@@ -21,14 +21,6 @@ class ContentsContainer extends Component {
         const { input, label, type, meta: {touched, error} } = field   
         return (
             <React.Fragment>
-                {/* <TextField 
-                    hintText={label}
-                    floatingLabelText={label}
-                    type={type}
-                    errorText={touched && error}
-                    {...input}
-                    className={css.textField}
-                /> */}
                 <label>スコア</label>
                 {/* <textarea type="number" placeholder="スコアを入力してください.." {...input} className={css.inputScore} cols="50" rows="1"></textarea> */}
                 <input {...input} placeholder="スコアを入力してください.." type="number" name="number" className={css.inputScore} ></input>
@@ -40,14 +32,6 @@ class ContentsContainer extends Component {
         const { input, label, type, meta: {touched, error} } = field   
         return (
             <React.Fragment>
-                {/* <TextField 
-                    hintText={label}
-                    floatingLabelText={label}
-                    type={type}
-                    errorText={touched && error}
-                    {...input}
-                    className={css.textField}
-                /> */}
                 <label>改善内容</label>
                 <textarea placeholder="改善内容を入力してください..." {...input} className={css.inputContent} cols="50" rows="2"></textarea>
             </React.Fragment>
