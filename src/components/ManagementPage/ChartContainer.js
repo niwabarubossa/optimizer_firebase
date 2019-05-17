@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classes from '../../assets/managementPage/ChartContainer.css'
+import ComposedChartContainer from './ComposedChartContainer'
 
 import {
     BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer
@@ -29,7 +30,7 @@ class ChartContainer extends Component {
         return(
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
-                  <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
+                  {/* <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <BarChart
                         // margin={{ top: 10, right: 60, left: 20, bottom: 0 }}
                         data={data}
@@ -43,7 +44,9 @@ class ChartContainer extends Component {
                         <Bar dataKey="pv" stackId="a" fill="#00b7ce" />
                         <Bar dataKey="uv" stackId="a" fill="#beebad" />
                     </BarChart>
-                  </ResponsiveContainer>
+                  </ResponsiveContainer> */}
+                  <ComposedChartContainer height={500} />
+
                 </div>
             </div>
         )
