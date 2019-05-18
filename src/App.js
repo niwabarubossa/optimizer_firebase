@@ -8,7 +8,7 @@ import AppBarMain from './components/appbar/AppBarMain'
 import InNav from './components/appbar/InNav'
 import ManagementPageMainContainer from "./components/ManagementPage/MainContainer";
 import UserPage from './components/UserPage/UserPage'
-
+import LoginPageMainContainer from './components/LoginPage/MainContainer'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentsContainer from './components/TopPage/ContentsContainer'
@@ -73,6 +73,7 @@ class App extends Component {
                   {/* <Route path="/:id" component={TestComponent} /> */}
                   <Route path="/management" component={ManagementPageMainContainer} />
                   <Route path="/user/:id" component={UserPage} />
+                  <Route path="/login" component={LoginPageMainContainer} />
                 </main>
               </div>
 

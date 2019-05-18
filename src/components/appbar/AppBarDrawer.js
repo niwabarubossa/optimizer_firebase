@@ -33,6 +33,12 @@ class AppBarDrawer extends Component {
                           <ListItemText primary={'管理画面へ'} />
                           </ListItem>
                       </Link>
+                      <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} >
+                          <ListItem button key={'aaa'}>
+                          <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                          <ListItemText primary={'ログイン'} />
+                          </ListItem>
+                      </Link>
                 </List>
               <Divider />
               <List>
