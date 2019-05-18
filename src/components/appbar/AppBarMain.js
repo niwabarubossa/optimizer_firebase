@@ -52,11 +52,6 @@ class AppBarMain extends Component {
                     </IconButton>
                     <Typography variant="h6" color="inherit" noWrap>
                         <Link to={'/'} style={{textDecoration : 'none',color: 'white' }}>Opty</Link>
-                        <Link to={'/management'} style={{textDecoration : 'none',color: 'white',marginLeft: '10px' }}>管理画面へ</Link>
-                        <button onClick={this.props.firebaseLogin}>login</button>
-                        <button onClick={this.props.loginStatus}>status</button>
-                        <button onClick={this.props.loginWithTwitter}>twitter_login</button>
-                        <button onClick={this.props.getCurrentState}>get_current_state</button>
                     </Typography>
                   </Toolbar>
                 </AppBar>
