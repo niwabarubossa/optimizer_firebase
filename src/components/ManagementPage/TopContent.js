@@ -9,17 +9,17 @@ class TopContent extends Component {
             <div className={classes.topContentContainer}>
                 <Grid container>
                     <Grid item xs={6} lg={3}>
-                        <ColorBox style={{backgroundColor: '#1fa8d8'}} />
+                        <ColorBox style={{backgroundColor: '#1fa8d8'}} header='総改善数' score='1533' />
                     </Grid>
                     <Grid item xs={6} lg={3}>
-                        <ColorBox style={{backgroundColor: '#63c2de'}} />
+                        <ColorBox style={{backgroundColor: '#63c2de'}} header='累積スコア' score='49300' />
                     </Grid>
-                    <Grid item xs={6} lg={3}>
+                   {/* <Grid item xs={6} lg={3}>
                         <ColorBox style={{backgroundColor: '#FEC24D'}} />
                     </Grid>
                     <Grid item xs={6} lg={3}>
                         <ColorBox style={{backgroundColor: '#f86c6b'}} />
-                    </Grid>
+                    </Grid>  */}
                 </Grid>
             </div>
         )
