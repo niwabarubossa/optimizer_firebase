@@ -53,8 +53,14 @@ class MainContainer extends Component {
                         <RaisedButton label="Submit" type="submit" style={style} />
                     </form>
                     <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
-                        twitter login
+                        Twitterでログイン
                     </Button>
+
+                    <h3>
+                        {this.props.current_user  ?
+                         this.props.current_user.uid:
+                         null}
+                    </h3>
                 </div>
             </div>
         )
@@ -77,6 +83,11 @@ const mapDispatchToProps = ({ handleDrawerToggle,
                             getUserInformationSuccess,
                             submitTweet,
                             submitTestImage })
-export default connect(null, mapDispatchToProps)(
+const mapStateToProps = (state) => {    
+  return { 
+    current_user: state.firebase.current_user
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(MainContainer)
 )
