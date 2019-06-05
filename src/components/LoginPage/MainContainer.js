@@ -53,7 +53,7 @@ class MainContainer extends Component {
                         <RaisedButton label="Submit" type="submit" style={style} />
                     </form>
                     <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
-                        Twitterでログイン
+                        twitter login
                     </Button>
                 </div>
             </div>
