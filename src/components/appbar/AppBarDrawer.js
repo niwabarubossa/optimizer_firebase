@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { compose } from 'redux'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -8,6 +9,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
+import { getUserInformation } from '../../actions'
+import { connect } from 'react-redux'
 
 const styles = theme => ({
   toolbar: theme.mixins.toolbar,
@@ -33,12 +36,19 @@ class AppBarDrawer extends Component {
                           <ListItemText primary={'管理画面へ'} />
                           </ListItem>
                       </Link>
-                      <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} >
-                          <ListItem button key={'aaa'}>
-                          <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                          <ListItemText primary={'ログイン'} />
-                          </ListItem>
-                      </Link>
+
+                      {
+                        this.props.current_user ?
+                        null
+                        :
+                        <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} >
+                            <ListItem button key={'aaa'}>
+                            <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                            <ListItemText primary={'ログイン'} />
+                            </ListItem>
+                        </Link>
+                      }
+
                 </List>
               <Divider />
               <List>
@@ -54,4 +64,18 @@ class AppBarDrawer extends Component {
     }
 }
 
-export default withStyles(styles, { withTheme: true })(AppBarDrawer);
+
+const mapStateToProps = (state) => {    
+  return { 
+	  current_user: state.firebase.current_user
+  }
+}
+
+const mapDispatchToProps = ({ getUserInformation })
+
+export default compose(
+  withStyles(styles,{ withTheme: true }),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+))(AppBarDrawer)
