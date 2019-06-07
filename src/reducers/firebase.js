@@ -13,7 +13,8 @@ const initialState = {
   }
 
 export default ( state = [initialState] , action ) => {
-    console.log(action)
+    console.log(action.type)
+    console.log(state)
     switch(action.type){
         case FIREBASELOGIN:
             console.log('----------------------firebase login action-----------------------')
