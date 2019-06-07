@@ -47,20 +47,18 @@ class MainContainer extends Component {
         return(
             <div>
                 <div className={css.loginFormContainer}>
-                    <form onSubmit={handleSubmit(this.onSubmit)} className={css.form}>
+                    {/* <form onSubmit={handleSubmit(this.onSubmit)} className={css.form}>
                         <div><Field label="Email" name="email" type="text" component={this.renderAddressField} /></div>
                         <div><Field label="password" name="password" type="password" component={this.renderPasswordField} /></div>
                         <RaisedButton label="Submit" type="submit" style={style} />
-                    </form>
-                    <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
-                        Twitterでログイン
-                    </Button>
-
-                    <h3>
-                        {this.props.current_user  ?
-                         this.props.current_user.uid:
-                         null}
-                    </h3>
+                    </form> */}
+                        {
+                            this.props.current_user  ?
+                            <h3>すでにログインしています</h3>:
+                            <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
+                                Twitterでログイン
+                            </Button>
+                        }
                 </div>
             </div>
         )
