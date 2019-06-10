@@ -28,7 +28,8 @@ export const submitTweet = (current_user,input) => async dispatch => {
         body: input.body,
         author_id: current_user.uid,
         tweet_id: Math.floor(Math.random()*1000000),
-        created_at: new Date(),
+        created_at: new Date().getTime(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
         dispatch({ type: SUBMITTWEET })
       });
@@ -54,15 +55,12 @@ export const getPostsSuccess = (json) => {
 export const getPosts = () => async dispatch => {
     const temperature = []
 
-    var startDate = new Date('June 7, 2018');
-    var endDate = new Date('June 9, 2019');
-    // await firestore.collection('tweets').orderBy('createdAt', 'asc').startAt(startDate).endAt(endDate).get().then((querySnapshot) => {
-    await firestore.collection("tweets").get().then(function(querySnapshot) {
+    await firestore.collection('tweets').where('created_at', '>', new Date().setMinutes(new Date().getMinutes() - 10)).where('created_at', '<', new Date().getTime()).get().then((querySnapshot) => {
+    // await firestore.collection("tweets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
         });
     });
-    debugger;
     dispatch(getPostsSuccess(temperature))
 }
 export const getSelectedPosts = (tweet_id) => async dispatch => {
