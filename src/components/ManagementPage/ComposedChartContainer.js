@@ -14,6 +14,15 @@ class ComposedChartContainer extends Component {
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
 
+                  { this.props.tweets && this.props.tweets.map(tweet => {
+                    return (
+                        <div key={tweet.tweet_id} height={400}>
+                        this is .....
+                          {tweet.body}
+                        </div>
+                    )
+                })}  
+
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <ComposedChart height={250} data={this.props.new_data}>
                     <XAxis dataKey="name" />
@@ -21,7 +30,7 @@ class ComposedChartContainer extends Component {
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Bar dataKey="pv" barSize={20} fill="#1fa8d8" />
+                    <Bar dataKey="total_action_amount" barSize={20} fill="#1fa8d8" />
                     </ComposedChart>
                   </ResponsiveContainer>
 

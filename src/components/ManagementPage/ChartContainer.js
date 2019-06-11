@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classes from '../../assets/managementPage/ChartContainer.css'
 import ComposedChartContainer from './ComposedChartContainer'
+import { getPosts } from '../../actions'
+import { connect } from 'react-redux'
 
 import {
     BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer
@@ -27,30 +29,29 @@ import {
 
 class ChartContainer extends Component {
 
+    componentWillMount(){
+        this.props.getPosts()
+    }
+    
     constructor(props) {
         super(props);
-        this.state = {
-          snackbarOpen: false
-        }
-        // pv -> total_action_amount
-        // uv -? total_score_amount
         this.data = [
-            {name: 'Page A', total_score_amount: 234, pv: 12},
-            {name: 'Page B', total_score_amount: 255, pv: 12},
-            {name: 'Page C', total_score_amount: 255, pv:15},
-            {name: 'Page D', total_score_amount: 278, pv: 18},
-            {name: 'Page E', total_score_amount: 256, pv: 19},
-            {name: 'Page F', total_score_amount: 290, pv: 19},
-            {name: 'Page G', total_score_amount: 390, pv: 20},
-            {name: 'Page H', total_score_amount: 400, pv: 24},
-            {name: 'Page I', total_score_amount: 402, pv: 26},
-            {name: 'Page J', total_score_amount: 403, pv: 27},
-            {name: 'Page J', total_score_amount: 412, pv: 27},
-            {name: 'Page J', total_score_amount: 400, pv: 28},
-            {name: 'Page J', total_score_amount: 420, pv: 28},
-            {name: 'Page G', total_score_amount: 445, pv: 28},
-            {name: 'Page G', total_score_amount: 450, pv: 30},
-            {name: 'Page E', total_score_amount: 455, pv: 31},
+            {name: 'Page A', total_score_amount: 234, total_action_amount: 12},
+            {name: 'Page B', total_score_amount: 255, total_action_amount: 12},
+            {name: 'Page C', total_score_amount: 255, total_action_amount:15},
+            {name: 'Page D', total_score_amount: 278, total_action_amount: 18},
+            {name: 'Page E', total_score_amount: 256, total_action_amount: 19},
+            {name: 'Page F', total_score_amount: 290, total_action_amount: 19},
+            {name: 'Page G', total_score_amount: 390, total_action_amount: 20},
+            {name: 'Page H', total_score_amount: 400, total_action_amount: 24},
+            {name: 'Page I', total_score_amount: 402, total_action_amount: 26},
+            {name: 'Page J', total_score_amount: 403, total_action_amount: 27},
+            {name: 'Page J', total_score_amount: 412, total_action_amount: 27},
+            {name: 'Page J', total_score_amount: 400, total_action_amount: 28},
+            {name: 'Page J', total_score_amount: 420, total_action_amount: 28},
+            {name: 'Page G', total_score_amount: 445, total_action_amount: 28},
+            {name: 'Page G', total_score_amount: 450, total_action_amount: 30},
+            {name: 'Page E', total_score_amount: 455, total_action_amount: 31},
         ];
       }
 
@@ -59,7 +60,7 @@ class ChartContainer extends Component {
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
 
-                  <ComposedChartContainer height={500} new_data={this.data} />
+                  <ComposedChartContainer height={500} new_data={this.data} tweets={this.props.tweets} />
 
                 </div>
             </div>
@@ -67,4 +68,10 @@ class ChartContainer extends Component {
     }
 }
 
-export default ChartContainer;
+const mapStateToProps = (state) => {    
+  return { 
+	tweets: state.firebase.items
+  }
+}
+const mapDispatchToProps = ({ getPosts })
+export default connect( mapStateToProps,mapDispatchToProps)(ChartContainer)
