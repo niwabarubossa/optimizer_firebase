@@ -9,33 +9,43 @@ class ComposedChartContainer extends Component {
       super(props);
     }
 
+    //this.props.tweets　に入っているから、そこから成型すれば良い。
+    // display user の全てのtweets　を取ってきて、それの合計をだす。　（１週間前までの） そこから　１つずつ足していく
+    //cloud functionsで監視が必要
+    //cloud functions で １週間前、　１ヶ月前、１年前までのスコア合計を計算しておいて、user　に持たせておく？
+    // score: total_score_before_week + tweet.score 
+
+    testClick(){
+        console.log(this.props)
+    }
+
     render(){
         return(
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
 
-                  { this.props.tweets && this.props.tweets.map(tweet => {
+                  { this.props.weekly_posts && this.props.weekly_posts.map(weekly_post => {
                     return (
-                        <div key={tweet.tweet_id} height={400}>
+                        <div key={weekly_post.tweet_id} height={400} onClick={this.testClick.bind(this)}>
                         this is .....
-                          {tweet.body}
+                          {weekly_post.score}
                         </div>
                     )
                 })}  
 
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
-                    <ComposedChart height={250} data={this.props.new_data}>
+                    <ComposedChart height={250} data={this.props.local_molded_data}>
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Bar dataKey="total_action_amount" barSize={20} fill="#1fa8d8" />
+                    <Bar dataKey="total_score_amount" barSize={20} fill="#1fa8d8" />
                     </ComposedChart>
                   </ResponsiveContainer>
 
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
-                    <ComposedChart height={250} data={this.props.new_data}>
+                    <ComposedChart height={250} data={this.props.local_molded_data}>
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />

@@ -54,8 +54,7 @@ export const getPostsSuccess = (json) => {
 }
 export const getPosts = () => async dispatch => {
     const temperature = []
-
-    await firestore.collection('tweets').where('created_at', '>', new Date().setMinutes(new Date().getMinutes() - 10)).where('created_at', '<', new Date().getTime()).get().then((querySnapshot) => {
+    await firestore.collection('tweets').get().then((querySnapshot) => {
     // await firestore.collection("tweets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
@@ -63,6 +62,24 @@ export const getPosts = () => async dispatch => {
     });
     dispatch(getPostsSuccess(temperature))
 }
+export const GET_WEEKLY_POSTS_SUCCESS = 'GET_WEEKLY_POSTS_SUCCESS'
+export const getWeeklyPostsSuccess = (json) => {  
+  return {
+    type: GET_WEEKLY_POSTS_SUCCESS,
+    weekly_posts: json,
+  }
+}
+export const GET_WEEKLY_POSTS = 'GET_WEEKLY_POSTS'
+export const getWeeklyPosts = () => async dispatch => {
+    const temperature = []
+    await firestore.collection('tweets').where('created_at', '>', new Date().setMinutes(new Date().getMinutes() - 10000)).where('created_at', '<', new Date().getTime()).get().then((querySnapshot) => {
+        querySnapshot.forEach(function(doc) {
+            temperature.push(Object.assign(doc.data(), {id: doc.id}))
+        });
+    });
+    dispatch(getWeeklyPostsSuccess(temperature))
+}
+
 export const getSelectedPosts = (tweet_id) => async dispatch => {
     const temperature = []
     await firestore.collection("tweets").where("tweet_id","==",tweet_id).get().then(function(querySnapshot) {
@@ -124,13 +141,6 @@ async function signInWithProvider() {
 
 export const GET_CURRENT_STATE = 'GET_CURRENT_STATE'
 export const getCurrentState = () => {
-
-    var addMessage = firebase.functions().httpsCallable('addMessage');
-        addMessage({text: 'aaaaaa'}).then(function(result) {
-            console.log('function result')
-            console.log(result)
-    });
-
     return {
         type: GET_CURRENT_STATE,
     }
