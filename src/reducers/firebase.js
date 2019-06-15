@@ -1,5 +1,5 @@
 import { 
-    FIREBASELOGIN,LOGINSTATUS,FIREBASELOGOUT,SUBMITTWEET,GET_TWEETS,GET_POSTS_REQUEST, GET_POSTS_SUCCESS,HANDLE_DRAWER_TOGGLE,HANDLE_DRAWER_TOGGLE_RESET, LOGIN_WITH_TWITTER, LOGIN_WITH_TWITTER_SUCCESS, GET_CURRENT_STATE,GET_USER_INFORMATION,GET_USER_INFORMATION_SUCCESS, GET_DISPLAY_USER_INFORMATION, GET_DISPLAY_USER_INFORMATION_SUCCESS, SUBMIT_TEST_IMAGE, SUBMIT_IMAGE_TWEET, GOOD_BUTTON_CLICKED, COMBINE_GOOD_DATA_TO_TWEET, COMBINE_GOOD_TRUE_DATA_TO_TWEET ,COMBINE_GOOD_FALSE_DATA_TO_TWEET,GET_WEEKLY_POSTS_SUCCESS
+    FIREBASELOGIN,LOGINSTATUS,FIREBASELOGOUT,SUBMITTWEET,GET_TWEETS,GET_POSTS_REQUEST, GET_POSTS_SUCCESS,HANDLE_DRAWER_TOGGLE,HANDLE_DRAWER_TOGGLE_RESET, LOGIN_WITH_TWITTER, LOGIN_WITH_TWITTER_SUCCESS, GET_CURRENT_STATE,GET_USER_INFORMATION,GET_USER_INFORMATION_SUCCESS, GET_DISPLAY_USER_INFORMATION, GET_DISPLAY_USER_INFORMATION_SUCCESS, SUBMIT_TEST_IMAGE, SUBMIT_IMAGE_TWEET, GOOD_BUTTON_CLICKED, COMBINE_GOOD_DATA_TO_TWEET, COMBINE_GOOD_TRUE_DATA_TO_TWEET ,COMBINE_GOOD_FALSE_DATA_TO_TWEET,GET_WEEKLY_POSTS_SUCCESS,GET_USER_CHART_INFORMATION_SUCCESS
  } from '../actions'
 import firebase from 'firebase';
 import { firestore } from '../plugins/firebase'
@@ -9,7 +9,7 @@ const initialState = {
     isFetching: false,
     items: [],
     mobileOpen: false,
-    user: null
+    user: null,
   }
 
 export default ( state = [initialState] , action ) => {
@@ -103,7 +103,7 @@ export default ( state = [initialState] , action ) => {
             return state
         case GET_USER_INFORMATION_SUCCESS:
             return Object.assign({}, state, {
-                current_user: action.current_user
+                current_user: action.current_user,
             })
         case GET_DISPLAY_USER_INFORMATION:
             return state
@@ -111,7 +111,7 @@ export default ( state = [initialState] , action ) => {
             console.log(' in reducer')
             console.log(action.display_user_uid)
             return Object.assign({}, state, {
-                display_user: action.display_user
+                display_user: action.display_user,
             })
         case SUBMIT_TEST_IMAGE:
             return state
@@ -119,6 +119,10 @@ export default ( state = [initialState] , action ) => {
             return state
         case GOOD_BUTTON_CLICKED:
             return state
+        case GET_USER_CHART_INFORMATION_SUCCESS:
+            return Object.assign({}, state, {
+                chart_user: action.chart_user,
+            })
         default: 
             return state
     }

@@ -184,10 +184,31 @@ export const getUserInformation = () => async dispatch => {
     });
 };
 export const GET_USER_INFORMATION_SUCCESS = 'GET_USER_INFORMATION_SUCCESS'
-export const getUserInformationSuccess = (current_user) => {  
+export const getUserInformationSuccess = (current_user) => {
     return {
         type: GET_USER_INFORMATION_SUCCESS,
-        current_user: current_user
+        current_user: current_user,
+    }
+}
+export const GET_USER_CHART_INFORMATION = 'GET_USER_CHART_INFORMATION'
+export const getUserChartInformation = ( uid ) => async dispatch => {
+    var temperature = null
+    await firestore.collection("users").doc(uid).get().then(function(doc) {
+        if (doc.exists) {
+            dispatch(getUserChartInformationSuccess(doc.data()))
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+export const GET_USER_CHART_INFORMATION_SUCCESS = 'GET_USER_CHART_INFORMATION_SUCCESS'
+export const getUserChartInformationSuccess = (current_user) => {  
+    return {
+        type: GET_USER_CHART_INFORMATION_SUCCESS,
+        chart_user: current_user
     }
 }
 
