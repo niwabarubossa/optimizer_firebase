@@ -57,17 +57,17 @@ class ContentCard extends Component {
       }
 
     async componentWillMount(){
-      var aiueo = null
-      await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
-          if (doc.exists) {
-            aiueo = true
-          } else {
-            aiueo = false
-          }
-      }).catch(function(error) {
-              console.log("Error getting document:", error);
-      });
-      this.setState({ local_state_like: aiueo})
+      // var aiueo = null
+      // await firestore.collection('tweets').doc(this.props.props.id).collection('liker').doc(this.props.current_user.uid).get().then(function(doc) {
+      //     if (doc.exists) {
+      //       aiueo = true
+      //     } else {
+      //       aiueo = false
+      //     }
+      // }).catch(function(error) {
+      //         console.log("Error getting document:", error);
+      // });
+      // this.setState({ local_state_like: aiueo})
     }
 
     async goodButtonClicked(){

@@ -22,13 +22,42 @@ export const firebaseLogout = () => ({
 })
 export const SUBMITTWEET = 'SUBMITTEXT'
 export const submitTweet = (current_user,input) => async dispatch => {
-    firestore.collection('tweets').add({
-        // score: input.score,
+    await firestore.collection('users').doc(current_user.uid).collection('tweets').add({
+        score: input.score,
         score: parseInt(input.score,10),
         body: input.body,
         author_id: current_user.uid,
         tweet_id: Math.floor(Math.random()*1000000),
-        created_at: new Date(),
+        created_at: new Date().getTime(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        dispatch({ type: SUBMITTWEET })
+      });
+
+      var temperature = []
+        await firestore.collection('users').doc(current_user.uid).get().then(function(doc) {
+            if (doc.exists) {
+                temperature.push(doc.data())
+            } else {
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });
+
+        await firestore.collection('users').doc(current_user.uid).update({ 
+          total_action_amount: temperature[0].total_action_amount + 1,
+          total_score_amount: temperature[0].total_score_amount + parseInt(input.score, 10) 
+        });
+
+    firestore.collection('tweets').add({
+        score: input.score,
+        score: parseInt(input.score,10),
+        body: input.body,
+        author_id: current_user.uid,
+        tweet_id: Math.floor(Math.random()*1000000),
+        created_at: new Date().getTime(),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
         dispatch({ type: SUBMITTWEET })
       });
@@ -53,14 +82,32 @@ export const getPostsSuccess = (json) => {
 }
 export const getPosts = () => async dispatch => {
     const temperature = []
-    // await firestore.collection("projects").get().then(function(querySnapshot) {
-    await firestore.collection("tweets").get().then(function(querySnapshot) {
+    await firestore.collection('tweets').get().then((querySnapshot) => {
+    // await firestore.collection("tweets").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
         });
     });
     dispatch(getPostsSuccess(temperature))
 }
+export const GET_WEEKLY_POSTS_SUCCESS = 'GET_WEEKLY_POSTS_SUCCESS'
+export const getWeeklyPostsSuccess = (json) => {  
+  return {
+    type: GET_WEEKLY_POSTS_SUCCESS,
+    weekly_posts: json,
+  }
+}
+export const GET_WEEKLY_POSTS = 'GET_WEEKLY_POSTS'
+export const getWeeklyPosts = () => async dispatch => {
+    const temperature = []
+    await firestore.collection('tweets').where('created_at', '>', new Date().setMinutes(new Date().getMinutes() - 10000)).where('created_at', '<', new Date().getTime()).get().then((querySnapshot) => {
+        querySnapshot.forEach(function(doc) {
+            temperature.push(Object.assign(doc.data(), {id: doc.id}))
+        });
+    });
+    dispatch(getWeeklyPostsSuccess(temperature))
+}
+
 export const getSelectedPosts = (tweet_id) => async dispatch => {
     const temperature = []
     await firestore.collection("tweets").where("tweet_id","==",tweet_id).get().then(function(querySnapshot) {
@@ -122,13 +169,6 @@ async function signInWithProvider() {
 
 export const GET_CURRENT_STATE = 'GET_CURRENT_STATE'
 export const getCurrentState = () => {
-
-    var addMessage = firebase.functions().httpsCallable('addMessage');
-        addMessage({text: 'aaaaaa'}).then(function(result) {
-            console.log('function result')
-            console.log(result)
-    });
-
     return {
         type: GET_CURRENT_STATE,
     }
@@ -137,17 +177,41 @@ export const GET_USER_INFORMATION = 'GET_USER_INFORMATION'
 export const getUserInformation = () => async dispatch => {
     await firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            dispatch(getUserInformationSuccess(user))
+            dispatch(getUserChartInformation(user))
         } else {
             console.log('get user information error')
         }
     });
 };
+export const GET_USER_CHART_INFORMATION = 'GET_USER_CHART_INFORMATION'
+export const getUserChartInformation = ( user ) => async dispatch => {
+    await firestore.collection("users").doc(user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            dispatch(getUserInformationSuccess(user,doc.data()))
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+// export const getUserInFirestoreInformation = ()
+
 export const GET_USER_INFORMATION_SUCCESS = 'GET_USER_INFORMATION_SUCCESS'
-export const getUserInformationSuccess = (current_user) => {  
+export const getUserInformationSuccess = (current_user,user_in_firestore) => {
     return {
         type: GET_USER_INFORMATION_SUCCESS,
-        current_user: current_user
+        current_user: current_user,
+        user_in_firestore: user_in_firestore
+    }
+}
+
+export const GET_USER_CHART_INFORMATION_SUCCESS = 'GET_USER_CHART_INFORMATION_SUCCESS'
+export const getUserChartInformationSuccess = (current_user) => {  
+    return {
+        type: GET_USER_CHART_INFORMATION_SUCCESS,
+        chart_user: current_user
     }
 }
 

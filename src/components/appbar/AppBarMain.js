@@ -30,8 +30,12 @@ const styles = theme => ({
 
 class AppBarMain extends Component {
 
-    componentWillMount(){
-      this.props.getUserInformation()
+    // componentWillMount(){
+      // this.props.getUserInformation()
+    // }
+    async componentDidMount(){
+      console.log('in appbar main get user information')
+      await this.props.getUserInformation()
     }
 
     render(){
