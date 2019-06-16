@@ -80,14 +80,12 @@ export default ( state = [initialState] , action ) => {
             return Object.assign({}, state, {
                 mobileOpen: !state.mobileOpen,
                 isFetching: false,
-                items: action.posts,
                 lastUpdated: action.receivedAt
             })
         case HANDLE_DRAWER_TOGGLE_RESET:
             return Object.assign({}, state, {
                 mobileOpen: false,
                 isFetching: false,
-                items: action.posts,
                 lastUpdated: action.receivedAt
             })
         case LOGIN_WITH_TWITTER:

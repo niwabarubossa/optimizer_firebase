@@ -7,10 +7,11 @@ import RightContainer from './RightContainer'
 import {Grid} from "@material-ui/core"
 
 class MainContainer extends Component {
-    componentWillMount(){
-        this.props.handleDrawerToggleReset()
-    }
+    // componentWillMount(){
+        // this.props.handleDrawerToggleReset()
+    // }
     componentDidMount(){
+        this.props.handleDrawerToggleReset()
         this.props.getPosts()
     }
     render(){
