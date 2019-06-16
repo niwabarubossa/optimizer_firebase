@@ -89,7 +89,7 @@ class ContentCard extends Component {
         const { classes } = this.props;
         return(
           <div className={css.cardContainer} >
-          <h1>{this.aiueo}</h1>
+          {/* <h1>{this.aiueo}</h1> */}
           <Link to={`user/${this.props.props.author_id}`} >
             <ListItem className={classes.card}>
                     <ListItemAvatar>
@@ -109,9 +109,9 @@ class ContentCard extends Component {
             </ListItem>
           </Link>
             <div className={css.contentContainer}>
-              {this.props.props.id}
-              {this.props.props.author_id}
-              {this.props.props.title}
+              {/* {this.props.props.id} */}
+              {/* {this.props.props.author_id} */}
+              {/* {this.props.props.title} */}
               {this.props.props.body}
               {/* <img className={css.tweetImage} src={this.props.props.image_url} ></img> */}
             </div>

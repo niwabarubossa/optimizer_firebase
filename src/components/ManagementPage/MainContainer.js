@@ -30,16 +30,6 @@ class MainContainer extends Component {
         return(
             <div className={classes.managementMainContainer}>
                 <MainContent />
-
-                {/* { this.state.showPopup ?
-                <ContentsContainer />             
-                :
-                null
-                }
-
-                <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}>
-                    <ContentAdd />
-                </FloatingActionButton> */}
             </div>
         )
     }

@@ -60,7 +60,7 @@ class App extends Component {
                     :
                     null
                   }
-            <div className="App" style={{textAlign: 'center',marginTop: '64px'}}>
+            <div className="App" style={{textAlign: 'center',marginTop: '64px',boxSizing: 'border-box'}}>
 
               <div className={classes.root}>   
                 <AppBarMain />
