@@ -75,8 +75,6 @@ class ChartContainer extends Component {
       async componentWillMount(){
         await this.props.getPosts()
         await this.props.getWeeklyPosts()
-        console.log('直後')
-        console.log(this.props.tweets)
         //累計スコアの算出
         var all_score = 0;
         for(i=0 ; i<this.props.tweets.length ; i++){
@@ -102,7 +100,6 @@ class ChartContainer extends Component {
             temp_hairetu.push(temp)
         }
         // {name: 'Page A', total_score_amount: 234, total_action_amount: 12},
-        console.log(temp_hairetu)
         this.setState({local_molded_data: temp_hairetu})
     }
 

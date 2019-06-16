@@ -177,31 +177,34 @@ export const GET_USER_INFORMATION = 'GET_USER_INFORMATION'
 export const getUserInformation = () => async dispatch => {
     await firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            dispatch(getUserInformationSuccess(user))
+            dispatch(getUserChartInformation(user))
         } else {
             console.log('get user information error')
         }
     });
 };
-export const GET_USER_INFORMATION_SUCCESS = 'GET_USER_INFORMATION_SUCCESS'
-export const getUserInformationSuccess = (current_user) => {
-    return {
-        type: GET_USER_INFORMATION_SUCCESS,
-        current_user: current_user,
-    }
-}
 export const GET_USER_CHART_INFORMATION = 'GET_USER_CHART_INFORMATION'
-export const getUserChartInformation = ( uid ) => async dispatch => {
-    var temperature = null
-    await firestore.collection("users").doc(uid).get().then(function(doc) {
+export const getUserChartInformation = ( user ) => async dispatch => {
+    await firestore.collection("users").doc(user.uid).get().then(function(doc) {
         if (doc.exists) {
-            dispatch(getUserChartInformationSuccess(doc.data()))
+            dispatch(getUserInformationSuccess(user,doc.data()))
         } else {
             console.log("No such document!");
         }
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
+}
+
+// export const getUserInFirestoreInformation = ()
+
+export const GET_USER_INFORMATION_SUCCESS = 'GET_USER_INFORMATION_SUCCESS'
+export const getUserInformationSuccess = (current_user,user_in_firestore) => {
+    return {
+        type: GET_USER_INFORMATION_SUCCESS,
+        current_user: current_user,
+        user_in_firestore: user_in_firestore
+    }
 }
 
 export const GET_USER_CHART_INFORMATION_SUCCESS = 'GET_USER_CHART_INFORMATION_SUCCESS'

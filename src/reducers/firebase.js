@@ -104,6 +104,7 @@ export default ( state = [initialState] , action ) => {
         case GET_USER_INFORMATION_SUCCESS:
             return Object.assign({}, state, {
                 current_user: action.current_user,
+                user_in_firestore: action.user_in_firestore
             })
         case GET_DISPLAY_USER_INFORMATION:
             return state
