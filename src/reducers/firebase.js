@@ -25,7 +25,11 @@ export default ( state = [initialState] , action ) => {
                 console.log('logout complete')
             }, err => {
             });
-            return state
+            // return state
+            return Object.assign({}, state, {
+                current_user: null,
+                user_in_firestore: null
+            })
         case LOGINSTATUS:
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {

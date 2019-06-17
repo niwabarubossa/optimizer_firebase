@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { handleDrawerToggle, firebaseLogin, loginStatus, loginWithTwitter, getCurrentState, getUserInformation, getUserInformationSuccess,submitTweet, submitTestImage } from '../../actions'
+import { handleDrawerToggle, firebaseLogin,firebaseLogout, loginStatus, loginWithTwitter,loginWithGoogle, getCurrentState, getUserInformation, getUserInformationSuccess,submitTweet, submitTestImage } from '../../actions'
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import css from '../../assets/loginPage/MainContainer.css'
-
+import firebase from 'firebase'
 import { Field, reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import { runInThisContext } from 'vm';
 
 class MainContainer extends Component {
     constructor(props){
@@ -39,6 +40,17 @@ class MainContainer extends Component {
         await this.props.submitTweet(this.props.current_user,values)
     }
 
+    loginWithGoogleDirect(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+            var user = result.user;
+            console.log(user)
+          }).catch(function(error) {
+              console.log('error occured')
+              console.log(error)
+          });
+    }
+
     render(){
 
         const { handleSubmit, pristine, submitting, invalid } = this.props
@@ -54,10 +66,24 @@ class MainContainer extends Component {
                     </form> */}
                         {
                             this.props.current_user  ?
-                            <h3>すでにログインしています</h3>:
-                            <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
-                                Twitterでログイン
-                            </Button>
+                            <React.Fragment>
+                                <h3>すでにログインしています</h3>
+                                <Button variant="outlined" color="primary" onClick={this.props.firebaseLogout}>
+                                    ログアウト
+                                </Button>
+                            </React.Fragment>
+                            :
+                            <React.Fragment>
+                                <Button variant="outlined" color="primary" onClick={this.props.getUserInformation}>
+                                    ログインしてる？
+                                </Button>
+                                <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
+                                    Twitterでログイン
+                                </Button>
+                                <Button variant="outlined" color="primary" onClick={this.loginWithGoogleDirect.bind(this)}>
+                                    Googleでログイン
+                                </Button>
+                            </React.Fragment>
                         }
                 </div>
             </div>
@@ -75,7 +101,9 @@ const validate = values => {
 const mapDispatchToProps = ({ handleDrawerToggle,
                             firebaseLogin,
                             loginStatus, 
+                            firebaseLogout,
                             loginWithTwitter, 
+                            loginWithGoogle,
                             getCurrentState, 
                             getUserInformation, 
                             getUserInformationSuccess,

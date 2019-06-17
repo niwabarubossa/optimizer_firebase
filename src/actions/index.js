@@ -156,6 +156,44 @@ export const loginWithTwitter = () => async dispatch => {
         console.log(error);
     }
 }
+export const LOGIN_WITHGOOGLE = 'LOGIN_WITHGOOGLE'
+export const loginWithGoogle = () => async dispatch => {
+    try {
+        const user = await (
+            signInWithGoogleProvider()
+        );
+        firestore.collection('users').doc(user.uid).set({
+            uid: user.uid,
+            createdAt: new Date()
+        }).then(() => {
+            console.log('success')
+        }).catch((err) => {
+            console.log(err)
+        })
+        dispatch({
+            type: LOGIN_WITH_TWITTER_SUCCESS,
+            user: user
+        });
+        return user;
+    } catch(error) {
+        console.log(error);
+    }
+}
+async function signInWithGoogleProvider() {    
+    try {
+        var provider = new firebase.auth.GoogleAuthProvider();
+        // firebase.auth().signInWithPopup(provider).then(function(result) {
+        //     var token = result.credential.accessToken;
+        //     var user = result.user;
+        //   }).catch(function(error) {
+        //   });
+        const response = await firebase.auth().signInWithPopup(provider);
+        return response.user;
+    } catch(error) {
+      throw error;
+    }
+}
+
 
 async function signInWithProvider() {    
     try {

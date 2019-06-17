@@ -9,7 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import { getUserInformation } from '../../actions'
+import { getUserInformation,firebaseLogout } from '../../actions'
 import { connect } from 'react-redux'
 
 const styles = theme => ({
@@ -39,6 +39,10 @@ class AppBarDrawer extends Component {
 
                       {
                         this.props.current_user ?
+                        // <ListItem button key={'logout_button'} onClick={this.props.firebaseLogout()}>
+                        //   <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                        //   <ListItemText primary={'ログアウト'} />
+                        // </ListItem>
                         null
                         :
                         <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} >
@@ -71,7 +75,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = ({ getUserInformation })
+const mapDispatchToProps = ({ getUserInformation,firebaseLogout })
 
 export default compose(
   withStyles(styles,{ withTheme: true }),
