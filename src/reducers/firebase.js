@@ -25,7 +25,11 @@ export default ( state = [initialState] , action ) => {
                 console.log('logout complete')
             }, err => {
             });
-            return state
+            // return state
+            return Object.assign({}, state, {
+                current_user: null,
+                user_in_firestore: null
+            })
         case LOGINSTATUS:
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
@@ -80,14 +84,12 @@ export default ( state = [initialState] , action ) => {
             return Object.assign({}, state, {
                 mobileOpen: !state.mobileOpen,
                 isFetching: false,
-                items: action.posts,
                 lastUpdated: action.receivedAt
             })
         case HANDLE_DRAWER_TOGGLE_RESET:
             return Object.assign({}, state, {
                 mobileOpen: false,
                 isFetching: false,
-                items: action.posts,
                 lastUpdated: action.receivedAt
             })
         case LOGIN_WITH_TWITTER:
