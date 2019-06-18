@@ -15,8 +15,18 @@ class UserProfileContainer extends Component {
     render(){
         return(
             <div className={css.userProfileContainer}>
-                <UserImage />
-                <UserInformation />
+            {
+                this.props.current_user ? 
+                <React.Fragment>
+                    <UserImage photoURL={this.props.current_user.photoURL} />
+                    <UserInformation user_name={this.props.current_user.displayName} />
+                </React.Fragment>
+                :
+                <React.Fragment>
+                    <UserImage photoURL="https://www.homepage-tukurikata.com/image/lion.jpg" />
+                    <UserInformation user_name="none" />
+                </React.Fragment>
+            }
                 {/* <ButtonContainer /> */}
             </div>
         )
@@ -25,7 +35,8 @@ class UserProfileContainer extends Component {
 
 const mapStateToProps = (state) => {    
     return { 
-      display_user_uid: state.firebase.display_user_uid
+      display_user_uid: state.firebase.display_user_uid,
+      current_user: state.firebase.current_user
     }
 }
 

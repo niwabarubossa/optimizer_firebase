@@ -164,7 +164,9 @@ export const loginWithGoogle = () => async dispatch => {
         );
         firestore.collection('users').doc(user.uid).set({
             uid: user.uid,
-            createdAt: new Date()
+            createdAt: new Date(),
+            // total_action_amount: 0,
+            // total_score_amount: 0
         }).then(() => {
             console.log('success')
         }).catch((err) => {
