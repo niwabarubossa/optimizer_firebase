@@ -83,22 +83,77 @@ class ChartContainer extends Component {
             }
         }
         var total_minus =0;
-        var i;
+        var i,j;
         var hairetu = [];
-        for(i= (this.props.weekly_posts.length-1) ; i>=0 ; i--){
-            // hairetu.push(this.props.weekly_posts[i].score);
-            if(this.props.weekly_posts[i].score){
-                total_minus -= this.props.weekly_posts[i].score
-                hairetu.unshift(total_minus)
+        var milliseconds_array = []
+        var weekly_score_array = [0,0,0,0,0,0,0,0]
+
+        for(i=0;i<=7;i++){
+            var today = new Date()
+            var i_days_before_miliseconds = new Date().setDate(new Date().getDate() - i);
+            var i_day = new Date(i_days_before_miliseconds)
+            milliseconds_array.unshift(i_day.setHours(0,0,0,0))
+        }
+        console.log(milliseconds_array)
+        for(i=0 ; i<=(this.props.weekly_posts.length-1) ;i++){
+            if((milliseconds_array[0] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[1])){
+                weekly_score_array[0] += this.props.tweets[i].score
+            }
+            else if((milliseconds_array[1] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[2])){
+                weekly_score_array[1] += this.props.tweets[i].score
+            }
+            else if((milliseconds_array[2] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[3])){
+                weekly_score_array[2] += this.props.tweets[i].score
+            }
+            else if((milliseconds_array[3] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[4])){
+                weekly_score_array[3] += this.props.tweets[i].score
+            }
+            else if((milliseconds_array[4] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[5])){
+                weekly_score_array[4] += this.props.tweets[i].score
+            }
+            else if((milliseconds_array[5] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[6])){
+                weekly_score_array[5] += this.props.tweets[i].score
+            }
+            else if((milliseconds_array[6] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[7])){
+                weekly_score_array[6] += this.props.tweets[i].score
+            }
+            else if( (milliseconds_array[7] <= this.props.tweets[i].created_at) ){
+                weekly_score_array[7] += this.props.tweets[i].score
+            }
+            else{
             }
         }
+        console.log('---------weekly score array')
+        console.log(weekly_score_array)
+        console.log('---------weekly score array')
+        for(i= (weekly_score_array.length-1) ; i>=0 ; i--){
+                total_minus -= weekly_score_array[i]
+                hairetu.unshift(total_minus)
+        }
+
+        console.log('---------hairetu')
+        console.log(hairetu)
+        console.log('---------hairetu')
+
+        console.log('---------all_score')
+        console.log(all_score)
+        console.log('---------all_score')
+
         var temp_hairetu = []
-        for(i=0;i<this.props.weekly_posts.length;i++){
+        for(i=0; i< hairetu.length -1   ;i++){
             var temp = {name: i,
                         total_score_amount: (all_score+hairetu[i])
                     }
             temp_hairetu.push(temp)
         }
+        var today = {
+            name: 7,
+            total_score_amount: all_score
+        }
+        temp_hairetu.push(today)
+        console.log('---------temp hairetu')
+        console.log(temp_hairetu)
+        console.log('---------temp hairetu')
         // {name: 'Page A', total_score_amount: 234, total_action_amount: 12},
         this.setState({local_molded_data: temp_hairetu})
     }
