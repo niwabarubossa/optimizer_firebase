@@ -201,7 +201,6 @@ async function signInWithGoogleProvider() {
     }
 }
 
-
 async function signInWithProvider() {    
     try {
         var provider = new firebase.auth.TwitterAuthProvider();
@@ -240,8 +239,6 @@ export const getUserChartInformation = ( user ) => async dispatch => {
         console.log("Error getting document:", error);
     });
 }
-
-// export const getUserInFirestoreInformation = ()
 
 export const GET_USER_INFORMATION_SUCCESS = 'GET_USER_INFORMATION_SUCCESS'
 export const getUserInformationSuccess = (current_user,user_in_firestore) => {
