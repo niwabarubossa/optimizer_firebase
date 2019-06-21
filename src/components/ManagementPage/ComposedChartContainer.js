@@ -36,6 +36,7 @@ class ComposedChartContainer extends Component {
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <ComposedChart height={250} data={this.props.local_molded_data}>
                     <XAxis dataKey="name" />
+                    {/* <YAxis domain={[7000, 10000]} /> */}
                     <YAxis />
                     <Tooltip />
                     <Legend />
