@@ -107,7 +107,8 @@ export default ( state = [initialState] , action ) => {
             return state
         case LOGIN_WITH_TWITTER_SUCCESS:
             return Object.assign({}, state, {
-                user: action.user
+                curent_user: action.current_user,
+                user_in_firestore: action.user_in_firestore
             })
         case GET_CURRENT_STATE:
             console.log(state)

@@ -199,9 +199,10 @@ async function signInWithProvider() {
     }
 }
 export const LOGIN_WITH_TWITTER_SUCCESS = 'LOGIN_WITH_TWITTER_SUCCESS'
-export const loginWithTwitterSuccess = (user) => ({
+export const loginWithTwitterSuccess = (current_user,user_in_firestore) => ({
     type: LOGIN_WITH_TWITTER_SUCCESS,
-    user: user
+    current_user: current_user,
+    user_in_firestore: user_in_firestore
 })
 
 export const LOGIN_WITHGOOGLE = 'LOGIN_WITHGOOGLE'
