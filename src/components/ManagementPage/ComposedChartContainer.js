@@ -3,6 +3,14 @@ import classes from '../../assets/managementPage/ChartContainer.css'
 import {
     Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer,ComposedChart,Area
   } from 'recharts';
+import { action_A,action_B } from '../../actions'
+import { connect } from 'react-redux'
+
+// const mapStateToProps = (state) => {    
+//   return { 
+//   }
+// }
+
 
 class ComposedChartContainer extends Component {
     constructor(props) {
@@ -16,7 +24,8 @@ class ComposedChartContainer extends Component {
     // score: total_score_before_week + tweet.score 
 
     testClick(){
-        console.log(this.props)
+        // console.log(this.props)
+        this.props.action_A()
     }
 
     render(){
@@ -24,14 +33,14 @@ class ComposedChartContainer extends Component {
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
 
-                  {/* { this.props.weekly_posts && this.props.weekly_posts.map(weekly_post => {
+                  { this.props.weekly_posts && this.props.weekly_posts.map(weekly_post => {
                     return (
                         <div key={weekly_post.tweet_id} height={400} onClick={this.testClick.bind(this)}>
                         this is .....
                           {weekly_post.score}
                         </div>
                     )
-                })}   */}
+                })}  
 
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <ComposedChart height={250} data={this.props.local_molded_data}>
@@ -62,4 +71,5 @@ class ComposedChartContainer extends Component {
     }
 }
 
-export default ComposedChartContainer;
+const mapDispatchToProps = ({ action_A,action_B })
+export default connect( null,mapDispatchToProps)(ComposedChartContainer)
