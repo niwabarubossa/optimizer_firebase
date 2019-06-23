@@ -143,7 +143,8 @@ export const loginWithTwitter = () => async dispatch => {
             if (doc.exists) {
                 //user　既存　二回目以降のログイン ( user, user_in_firestore)
                 console.log('二回目以降のログインです user データがfirestore　に存在しています')
-                dispatch(loginWithTwitterSuccess((user,doc.data())))
+                dispatch(set_current_user_and_in_firestore(user))
+                // dispatch(loginWithTwitterSuccess((user,doc.data())))
             } else {
                 console.log('初回のログインです user データがfirestore　に存在していませんので作成します')
                 dispatch(first_user(user))
