@@ -124,7 +124,7 @@ export default ( state = [initialState] , action ) => {
             return state
         case GET_DISPLAY_USER_INFORMATION_SUCCESS:
             console.log(' in reducer')
-            console.log(action.display_user_uid)
+            console.log(action.display_user)
             return Object.assign({}, state, {
                 display_user: action.display_user,
             })

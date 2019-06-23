@@ -8,18 +8,16 @@ import UserImage from '../UserImage'
 
 class UserProfileContainer extends Component {
 
-    componentDidMount(){
-        // this.props.getDisplayUserInformation(this.props.match.params.id)
-    }
-
     render(){
         return(
             <div className={css.userProfileContainer}>
             {
-                this.props.current_user ? 
+                this.props.display_user ? 
                 <React.Fragment>
-                    <UserImage photoURL={this.props.current_user.photoURL} />
-                    <UserInformation user_name={this.props.current_user.displayName} />
+                    {/* <UserImage photoURL={this.props.current_user.photoURL} />
+                    <UserInformation user_name={this.props.current_user.displayName} /> */}
+                    <UserImage photoURL={this.props.display_user.photoURL} />
+                    <UserInformation user_name={this.props.display_user.displayName} />
                 </React.Fragment>
                 :
                 <React.Fragment>
@@ -35,7 +33,7 @@ class UserProfileContainer extends Component {
 
 const mapStateToProps = (state) => {    
     return { 
-      display_user_uid: state.firebase.display_user_uid,
+      display_user: state.firebase.display_user,
       current_user: state.firebase.current_user
     }
 }

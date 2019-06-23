@@ -163,7 +163,9 @@ export const first_user = (user) => async dispatch => {
         uid: user.uid,
         createdAt: new Date(),
         total_action_amount: 0,
-        total_score_amount: 0
+        total_score_amount: 0,
+        photoURL: user.photoURL,
+        displayName: user.displayName
     }).then(() => {
         console.log(' first users　データ作成完了しました ')
         dispatch(set_current_user_and_in_firestore(user))
