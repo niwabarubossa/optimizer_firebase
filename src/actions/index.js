@@ -132,11 +132,6 @@ export const handleDrawerToggleReset = () => ({
     type: HANDLE_DRAWER_TOGGLE_RESET
 })
 
-export const LOGIN_WITH_TWITTER_SUCCESS = 'LOGIN_WITH_TWITTER_SUCCESS'
-export const loginWithTwitterSuccess = (user) => ({
-    type: LOGIN_WITH_TWITTER_SUCCESS,
-    user: user
-})
 
 export const LOGIN_WITH_TWITTER = 'LOGIN_WITH_TWITTER'
 export const loginWithTwitter = () => async dispatch => {
@@ -144,23 +139,73 @@ export const loginWithTwitter = () => async dispatch => {
         const user = await (
             signInWithProvider()
         );
-        firestore.collection('users').doc(user.uid).set({
-            uid: user.uid,
-            createdAt: new Date()
-        }).then(() => {
-            console.log('success')
-        }).catch((err) => {
-            console.log(err)
-        })
-        dispatch({
-            type: LOGIN_WITH_TWITTER_SUCCESS,
-            user: user
+        await firestore.collection("users").doc(user.uid).get().then(function(doc) {
+            if (doc.exists) {
+                //user　既存　二回目以降のログイン ( user, user_in_firestore)
+                console.log('二回目以降のログインです user データがfirestore　に存在しています')
+                dispatch(set_current_user_and_in_firestore(user))
+                // dispatch(loginWithTwitterSuccess((user,doc.data())))
+            } else {
+                console.log('初回のログインです user データがfirestore　に存在していませんので作成します')
+                dispatch(first_user(user))
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
         });
         return user;
     } catch(error) {
         console.log(error);
     }
 }
+export const first_user = (user) => async dispatch => {
+    console.log('初回ログインですので、userデータを作成します')
+    await firestore.collection('users').doc(user.uid).set({
+        uid: user.uid,
+        createdAt: new Date(),
+        total_action_amount: 0,
+        total_score_amount: 0
+    }).then(() => {
+        console.log(' first users　データ作成完了しました ')
+        dispatch(set_current_user_and_in_firestore(user))
+        console.log('success')
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+export const SET_CURRENT_USER_AND_IN_FIRESTORE = 'SET_CURRENT_USER_AND_IN_FIRESTORE' 
+export const set_current_user_and_in_firestore = (current_user) => async dispatch => {
+    const user_in_firestore = []
+    await firestore.collection("users").doc(current_user.uid).get().then(function(doc) {
+        if (doc.exists) {
+            user_in_firestore.push(doc.data())
+        } else {
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+    dispatch({
+        type: SET_CURRENT_USER_AND_IN_FIRESTORE,
+        user_in_firestore: user_in_firestore[0],
+        current_user: current_user
+    })
+}
+async function signInWithProvider() {    
+    try {
+        var provider = new firebase.auth.TwitterAuthProvider();
+        const response = await firebase.auth().signInWithPopup(provider);
+        return response.user;
+    } catch(error) {
+      throw error;
+    }
+}
+export const LOGIN_WITH_TWITTER_SUCCESS = 'LOGIN_WITH_TWITTER_SUCCESS'
+export const loginWithTwitterSuccess = (current_user,user_in_firestore) => ({
+    type: LOGIN_WITH_TWITTER_SUCCESS,
+    current_user: current_user,
+    user_in_firestore: user_in_firestore
+})
+
 export const LOGIN_WITHGOOGLE = 'LOGIN_WITHGOOGLE'
 export const loginWithGoogle = () => async dispatch => {
     try {
@@ -200,18 +245,6 @@ async function signInWithGoogleProvider() {
       throw error;
     }
 }
-
-
-async function signInWithProvider() {    
-    try {
-        var provider = new firebase.auth.TwitterAuthProvider();
-        const response = await firebase.auth().signInWithPopup(provider);
-        return response.user;
-    } catch(error) {
-      throw error;
-    }
-}
-
 export const GET_CURRENT_STATE = 'GET_CURRENT_STATE'
 export const getCurrentState = () => {
     return {
@@ -240,8 +273,6 @@ export const getUserChartInformation = ( user ) => async dispatch => {
         console.log("Error getting document:", error);
     });
 }
-
-// export const getUserInFirestoreInformation = ()
 
 export const GET_USER_INFORMATION_SUCCESS = 'GET_USER_INFORMATION_SUCCESS'
 export const getUserInformationSuccess = (current_user,user_in_firestore) => {
@@ -373,4 +404,22 @@ export const removeUserFromFollow = ( current_user, followed_user ) => async dis
     }).catch(function(error) {
         console.error("Error removing document: ", error);
     });
+}
+
+export const ACTION_A = 'ACTION_A'
+export const action_A = () => async dispatch =>  {
+    console.log('action A in actions/index.js')
+    // action_B() ->これ単体だとaction_b のconsole.logが動くだけで、reducer　にaction_B　動いてない
+    // dispatch(action_B()) async dispatch の中でやるとこれがきちんと動作する
+    // async dispatch がある場合　return だけだと何も発生しない reducerも動いてない。 async dispatch がない場合は単体でも十分動く
+    return {
+        type: ACTION_A,
+    }
+}
+export const ACTION_B = 'ACTION_B'
+export const action_B = () =>  {
+    console.log('表示されない')
+    return {
+        type: ACTION_B,
+    }
 }

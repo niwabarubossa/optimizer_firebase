@@ -1,5 +1,5 @@
 import { 
-    FIREBASELOGIN,LOGINSTATUS,FIREBASELOGOUT,SUBMITTWEET,GET_TWEETS,GET_POSTS_REQUEST, GET_POSTS_SUCCESS,HANDLE_DRAWER_TOGGLE,HANDLE_DRAWER_TOGGLE_RESET, LOGIN_WITH_TWITTER, LOGIN_WITH_TWITTER_SUCCESS, GET_CURRENT_STATE,GET_USER_INFORMATION,GET_USER_INFORMATION_SUCCESS, GET_DISPLAY_USER_INFORMATION, GET_DISPLAY_USER_INFORMATION_SUCCESS, SUBMIT_TEST_IMAGE, SUBMIT_IMAGE_TWEET, GOOD_BUTTON_CLICKED, COMBINE_GOOD_DATA_TO_TWEET, COMBINE_GOOD_TRUE_DATA_TO_TWEET ,COMBINE_GOOD_FALSE_DATA_TO_TWEET,GET_WEEKLY_POSTS_SUCCESS,GET_USER_CHART_INFORMATION_SUCCESS
+    FIREBASELOGIN,LOGINSTATUS,FIREBASELOGOUT,SUBMITTWEET,GET_TWEETS,GET_POSTS_REQUEST, GET_POSTS_SUCCESS,HANDLE_DRAWER_TOGGLE,HANDLE_DRAWER_TOGGLE_RESET, LOGIN_WITH_TWITTER, LOGIN_WITH_TWITTER_SUCCESS, GET_CURRENT_STATE,GET_USER_INFORMATION,GET_USER_INFORMATION_SUCCESS, GET_DISPLAY_USER_INFORMATION, GET_DISPLAY_USER_INFORMATION_SUCCESS, SUBMIT_TEST_IMAGE, SUBMIT_IMAGE_TWEET, GOOD_BUTTON_CLICKED, COMBINE_GOOD_DATA_TO_TWEET, COMBINE_GOOD_TRUE_DATA_TO_TWEET ,COMBINE_GOOD_FALSE_DATA_TO_TWEET,GET_WEEKLY_POSTS_SUCCESS,GET_USER_CHART_INFORMATION_SUCCESS,ACTION_A,ACTION_B,SET_CURRENT_USER_AND_IN_FIRESTORE
  } from '../actions'
 import firebase from 'firebase';
 import { firestore } from '../plugins/firebase'
@@ -15,6 +15,17 @@ const initialState = {
 export default ( state = [initialState] , action ) => {
     console.log(action.type)
     switch(action.type){
+        case SET_CURRENT_USER_AND_IN_FIRESTORE:
+            return Object.assign({}, state, {
+                user_in_firestore: action.user_in_firestore,
+                current_user: action.current_user
+            }) 
+        case ACTION_A:
+            console.log('in reducer action A')
+            return state
+        case ACTION_B:
+            console.log('in reducer action B')
+            return state
         case FIREBASELOGIN:
             console.log('----------------------firebase login action-----------------------')
             firebase.auth().signInAnonymously()
@@ -96,7 +107,8 @@ export default ( state = [initialState] , action ) => {
             return state
         case LOGIN_WITH_TWITTER_SUCCESS:
             return Object.assign({}, state, {
-                user: action.user
+                curent_user: action.current_user,
+                user_in_firestore: action.user_in_firestore
             })
         case GET_CURRENT_STATE:
             console.log(state)
