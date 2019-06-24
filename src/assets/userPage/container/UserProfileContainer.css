@@ -1,5 +1,5 @@
 .userProfileContainer{
-    border:solid 1px gray;
+    border-bottom:solid 1px gray;
     height:auto;
     width: 100%;
     justify-content: center;

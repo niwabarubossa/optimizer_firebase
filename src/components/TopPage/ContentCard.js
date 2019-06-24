@@ -90,7 +90,7 @@ class ContentCard extends Component {
         if(this.props.props.author_name)
           var displayName = this.props.props.author_name;
         else 
-          var displayName = '名前無し';
+          var displayName = 'none';
 
         return(
           <div className={css.cardContainer} >
