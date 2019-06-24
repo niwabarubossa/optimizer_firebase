@@ -87,6 +87,11 @@ class ContentCard extends Component {
 
     render(){
         const { classes } = this.props;
+        if(this.props.props.author_name)
+          var displayName = this.props.props.author_name;
+        else 
+          var displayName = 'none';
+
         return(
           <div className={css.cardContainer} >
           {/* <h1>{this.aiueo}</h1> */}
@@ -96,13 +101,14 @@ class ContentCard extends Component {
                     <FaceIcon className={classes.icon} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary="Brunch this weekend?"
+                      // primary="Brunch this weekend?"
+                      primary={displayName}
                       secondary={
                       <React.Fragment>
                       <Typography component="span" className={classes.inline} color="textPrimary">
-                        Ali Connors
+                        {/* Ali Connors */}
                       </Typography>
-                        {" — I'll be in your neighborhood doing errands this…"}
+                        {/* {" — I'll be in your neighborhood doing errands this…"} */}
                         </React.Fragment>
                       }
                       />
