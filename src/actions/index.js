@@ -21,12 +21,13 @@ export const firebaseLogout = () => ({
     type: FIREBASELOGOUT
 })
 export const SUBMITTWEET = 'SUBMITTEXT'
-export const submitTweet = (current_user,input) => async dispatch => {
+export const submitTweet = (current_user,user_in_firestore,input) => async dispatch => {
     await firestore.collection('users').doc(current_user.uid).collection('tweets').add({
-        score: input.score,
+        // score: input.score,
         score: parseInt(input.score,10),
         body: input.body,
         author_id: current_user.uid,
+        author_name: user_in_firestore.displayName,
         tweet_id: Math.floor(Math.random()*1000000),
         created_at: new Date().getTime(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -50,11 +51,11 @@ export const submitTweet = (current_user,input) => async dispatch => {
           total_score_amount: temperature[0].total_score_amount + parseInt(input.score, 10) 
         });
 
-    firestore.collection('tweets').add({
-        score: input.score,
+    await firestore.collection('tweets').add({
         score: parseInt(input.score,10),
         body: input.body,
         author_id: current_user.uid,
+        author_name: user_in_firestore.displayName,
         tweet_id: Math.floor(Math.random()*1000000),
         created_at: new Date().getTime(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
