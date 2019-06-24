@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { handleDrawerToggle, firebaseLogin,firebaseLogout, loginStatus, loginWithTwitter,loginWithGoogle, getCurrentState, getUserInformation, getUserInformationSuccess,submitTweet, submitTestImage } from '../../actions'
+import { handleDrawerToggle, firebaseLogin,firebaseLogout, loginStatus, loginWithTwitter,loginWithGoogle, getCurrentState, getUserInformation, getUserInformationSuccess,submitTweet, submitTestImage, set_current_user_and_in_firestore } from '../../actions'
 import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import css from '../../assets/loginPage/MainContainer.css'
@@ -37,7 +37,7 @@ class MainContainer extends Component {
     }
 
     async onSubmit(values){
-        await this.props.submitTweet(this.props.current_user,values)
+        await this.props.submitTweet(this.props.current_user,this.props.user_in_firestore,values)
     }
 
     loginWithGoogleDirect(){
@@ -108,10 +108,13 @@ const mapDispatchToProps = ({ handleDrawerToggle,
                             getUserInformation, 
                             getUserInformationSuccess,
                             submitTweet,
-                            submitTestImage })
+                            submitTestImage,
+                            set_current_user_and_in_firestore
+                         })
 const mapStateToProps = (state) => {    
   return { 
-    current_user: state.firebase.current_user
+    current_user: state.firebase.current_user,
+    user_in_firestore: state.firebase.user_in_firestore
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
