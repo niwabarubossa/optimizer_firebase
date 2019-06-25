@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from '../../assets/managementPage/ChartContainer.css'
 import ComposedChartContainer from './ComposedChartContainer'
-import { getPosts,getWeeklyPosts,getCurrentState } from '../../actions'
+import { getPosts,getWeeklyPosts,getCurrentState,getUserInformation } from '../../actions'
 import { connect } from 'react-redux'
 
 import {
@@ -72,9 +72,15 @@ class ChartContainer extends Component {
         // ];
       }
 
-      async componentWillMount(){
+    //   async componentWillMount(){
+    async componentDidMount(){
         await this.props.getPosts()
-        await this.props.getWeeklyPosts()
+        await this.props.getUserInformation()
+    }
+
+    async componentDidUpdate(prevProps) {
+        　if (this.props.current_user !== prevProps.current_user) {
+        　　await this.props.getWeeklyPosts(this.props.current_user.uid);
         //累計スコアの算出
         var all_score = 0;
         for(i=0 ; i<this.props.tweets.length ; i++){
@@ -94,7 +100,6 @@ class ChartContainer extends Component {
             var i_day = new Date(i_days_before_miliseconds)
             milliseconds_array.unshift(i_day.setHours(0,0,0,0))
         }
-        console.log(milliseconds_array)
         for(i=0 ; i<=(this.props.weekly_posts.length-1) ;i++){
             if((milliseconds_array[0] <= this.props.tweets[i].created_at) && (this.props.tweets[i].created_at <= milliseconds_array[1])){
                 weekly_score_array[0] += this.props.tweets[i].score
@@ -131,14 +136,6 @@ class ChartContainer extends Component {
                 hairetu.unshift(total_minus)
         }
 
-        console.log('---------hairetu')
-        console.log(hairetu)
-        console.log('---------hairetu')
-
-        console.log('---------all_score')
-        console.log(all_score)
-        console.log('---------all_score')
-
         var temp_hairetu = []
         for(i=0; i< hairetu.length -1   ;i++){
             var temp = {name: i,
@@ -151,11 +148,10 @@ class ChartContainer extends Component {
             total_score_amount: all_score
         }
         temp_hairetu.push(today)
-        console.log('---------temp hairetu')
-        console.log(temp_hairetu)
-        console.log('---------temp hairetu')
         // {name: 'Page A', total_score_amount: 234, total_action_amount: 12},
         this.setState({local_molded_data: temp_hairetu})
+
+        　}
     }
 
     render(){
@@ -173,10 +169,11 @@ class ChartContainer extends Component {
 
 const mapStateToProps = (state) => {    
   return { 
-    tweets: state.firebase.items,
+    // tweets: state.firebase.items,
+    tweets: state.firebase.weekly_posts,
     weekly_posts: state.firebase.weekly_posts,
     current_user: state.firebase.current_user
   }
 }
-const mapDispatchToProps = ({ getPosts,getWeeklyPosts,getCurrentState })
+const mapDispatchToProps = ({ getPosts,getWeeklyPosts,getCurrentState,getUserInformation })
 export default connect( mapStateToProps,mapDispatchToProps)(ChartContainer)
