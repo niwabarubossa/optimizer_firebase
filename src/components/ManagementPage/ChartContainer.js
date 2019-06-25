@@ -174,7 +174,8 @@ class ChartContainer extends Component {
 const mapStateToProps = (state) => {    
   return { 
     tweets: state.firebase.items,
-    weekly_posts: state.firebase.weekly_posts
+    weekly_posts: state.firebase.weekly_posts,
+    current_user: state.firebase.current_user
   }
 }
 const mapDispatchToProps = ({ getPosts,getWeeklyPosts,getCurrentState })
