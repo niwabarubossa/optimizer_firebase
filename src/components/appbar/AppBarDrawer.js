@@ -39,10 +39,18 @@ class AppBarDrawer extends Component {
 
                       {
                         this.props.current_user ?
-                        <ListItem button key={'logout_button'} onClick={ () => this.props.firebaseLogout()}>
-                          <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                          <ListItemText primary={'ログアウト'} />
-                        </ListItem>
+                        <React.Fragment>
+                          <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }} >
+                            <ListItem button key={'submitButton'}>
+                              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                              <ListItemText primary={'記録する'} />
+                            </ListItem>
+                          </Link>
+                          <ListItem button key={'logout_button'} onClick={ () => this.props.firebaseLogout()}>
+                            <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                            <ListItemText primary={'ログアウト'} />
+                          </ListItem>
+                        </React.Fragment>
                         :
                         <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} >
                             <ListItem button key={'aaa'}>

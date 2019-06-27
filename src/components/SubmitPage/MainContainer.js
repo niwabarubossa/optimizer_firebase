@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import {Grid} from "@material-ui/core"
 import css from '../../assets/submitPage/MainContainer.css'
 import SubmitForm from './SubmitForm'
+import { handleDrawerToggleReset } from '../../actions'
+import { connect } from 'react-redux'
+
 
 class MainContainer extends Component {
+
+    componentDidMount(){
+        this.props.handleDrawerToggleReset()
+    }
+
     render(){
         return(
             <Grid container>
@@ -24,4 +32,5 @@ class MainContainer extends Component {
     }
 }
 
-export default MainContainer;
+const mapDispatchToProps = ({ handleDrawerToggleReset })
+export default connect( null ,mapDispatchToProps)(MainContainer)
