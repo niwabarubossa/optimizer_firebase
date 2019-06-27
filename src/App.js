@@ -12,6 +12,8 @@ import LoginPageMainContainer from './components/LoginPage/MainContainer'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentsContainer from './components/TopPage/ContentsContainer'
+import SubmitPage from './components/SubmitPage/MainContainer'
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 240;
 const styles = theme => ({
@@ -74,13 +76,17 @@ class App extends Component {
                   <Route path="/management" component={ManagementPageMainContainer} />
                   <Route path="/user/:id" component={UserPage} />
                   <Route path="/login" component={LoginPageMainContainer} />
+                  <Route path="/submit" component={SubmitPage} />
                 </main>
               </div>
 
-              <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}>
-                <ContentAdd />
-              </FloatingActionButton>
+              {/* <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}> */}
 
+              <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }} >
+                <FloatingActionButton style={AddBtnStyle} >
+                  <ContentAdd />
+                </FloatingActionButton>
+              </Link>
             </div>
 
 
