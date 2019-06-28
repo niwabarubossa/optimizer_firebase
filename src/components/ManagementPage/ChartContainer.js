@@ -19,9 +19,9 @@ class ChartContainer extends Component {
 
     async componentDidMount(){
         await this.props.getPosts()
-        // if(this.props.current_user){
-        //     await this.props.getWeeklyPosts(this.props.current_user.uid)
-        // }
+        if(this.props.current_user){
+            await this.props.getWeeklyPosts(this.props.current_user.uid)
+        }
     }
 
     async componentDidUpdate(prevProps) {
