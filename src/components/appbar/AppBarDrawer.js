@@ -9,13 +9,18 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
-import { getUserInformation,firebaseLogout } from '../../actions'
+import { getUserInformation,firebaseLogout,handleDrawerToggleReset } from '../../actions'
 import { connect } from 'react-redux'
 
 const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 class AppBarDrawer extends Component {
+
+    logoutClicked(){
+      this.props.firebaseLogout()
+      this.props.handleDrawerToggleReset()
+    }
 
     render(){
         const { classes, theme } = this.props;
@@ -24,13 +29,13 @@ class AppBarDrawer extends Component {
               <div className={classes.toolbar} />
               <Divider />
                 <List>
-                      <Link to={'/'} style={{textDecoration : 'none',color: 'white' }} >
+                      <Link to={'/'} style={{textDecoration : 'none',color: 'white' }}  onClick={ () => this.props.handleDrawerToggleReset()}>
                           <ListItem button key={'aaa'}>
                           <ListItemIcon> <InboxIcon /> </ListItemIcon>
                           <ListItemText primary={'トップページ'} />
                           </ListItem>
                       </Link>
-                      <Link to={'/management'} style={{textDecoration : 'none',color: 'white' }} >
+                      <Link to={'/management'} style={{textDecoration : 'none',color: 'white' }} onClick={ () => this.props.handleDrawerToggleReset()} >
                           <ListItem button key={'aaa'}>
                           <ListItemIcon> <InboxIcon /> </ListItemIcon>
                           <ListItemText primary={'管理画面へ'} />
@@ -40,19 +45,19 @@ class AppBarDrawer extends Component {
                       {
                         this.props.current_user ?
                         <React.Fragment>
-                          <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }} >
+                          <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }}  onClick={ () => this.props.handleDrawerToggleReset()} >
                             <ListItem button key={'submitButton'}>
                               <ListItemIcon> <InboxIcon /> </ListItemIcon>
                               <ListItemText primary={'記録する'} />
                             </ListItem>
                           </Link>
-                          <ListItem button key={'logout_button'} onClick={ () => this.props.firebaseLogout()}>
+                          <ListItem button key={'logout_button'} onClick={this.logoutClicked.bind(this)}>
                             <ListItemIcon> <InboxIcon /> </ListItemIcon>
                             <ListItemText primary={'ログアウト'} />
                           </ListItem>
                         </React.Fragment>
                         :
-                        <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} >
+                        <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} onClick={ () => this.props.handleDrawerToggleReset()} >
                             <ListItem button key={'aaa'}>
                             <ListItemIcon> <InboxIcon /> </ListItemIcon>
                             <ListItemText primary={'ログイン'} />
@@ -82,7 +87,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = ({ getUserInformation,firebaseLogout })
+const mapDispatchToProps = ({ getUserInformation,firebaseLogout,handleDrawerToggleReset})
 
 export default compose(
   withStyles(styles,{ withTheme: true }),
