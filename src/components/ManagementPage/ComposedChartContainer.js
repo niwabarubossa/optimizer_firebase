@@ -33,14 +33,14 @@ class ComposedChartContainer extends Component {
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
 
-                  { this.props.weekly_posts && this.props.weekly_posts.map(weekly_post => {
-                    return (
-                        <div key={weekly_post.tweet_id} height={400} onClick={this.testClick.bind(this)}>
-                        this is .....
-                          {weekly_post.score}
-                        </div>
-                    )
-                })}  
+                {/* //   { this.props.weekly_posts && this.props.weekly_posts.map(weekly_post => {
+                //     return (
+                //         <div key={weekly_post.tweet_id} height={400} onClick={this.testClick.bind(this)}>
+                //         this is .....
+                //           {weekly_post.score}
+                //         </div>
+                //     )
+                // })}   */}
 
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <ComposedChart height={250} data={this.props.local_molded_data}>

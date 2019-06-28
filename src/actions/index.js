@@ -99,14 +99,16 @@ export const getWeeklyPostsSuccess = (json) => {
   }
 }
 export const GET_WEEKLY_POSTS = 'GET_WEEKLY_POSTS'
-export const getWeeklyPosts = () => async dispatch => {
+// export const getWeeklyPosts = (uid) => async dispatch => {
+export const getWeeklyPosts = (uid) => async dispatch => {
     const temperature = []
     var today = new Date()
     //１週間前
     var last_week_miliseconds = new Date().setDate(new Date().getDate() - 7);
     var last_week = new Date(last_week_miliseconds)
     last_week.setHours(0,0,0,0)
-    await firestore.collection('tweets').where('created_at', '>',last_week.getTime()).where('created_at', '<', today.getTime() ).get().then((querySnapshot) => {
+    await firestore.collection('users').doc(uid).collection('tweets').where('created_at', '>',last_week.getTime()).where('created_at', '<', today.getTime() ).get().then((querySnapshot) => {
+    // await firestore.collection('tweets').where('created_at', '>',last_week.getTime()).where('created_at', '<', today.getTime() ).get().then((querySnapshot) => {
         querySnapshot.forEach(function(doc) {
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
         });
