@@ -25,7 +25,6 @@ class ChartContainer extends Component {
     }
 
     async componentDidUpdate(prevProps) {
-        // 　if ( !(this.props.current_user) || (this.state.local_molded_data) == null ) {
         　if ( prevProps.current_user != (this.props.current_user) || (this.state.local_molded_data) == null ) {
         　　await this.props.getWeeklyPosts(this.props.current_user.uid);
             //累計スコアの算出
@@ -95,13 +94,8 @@ class ChartContainer extends Component {
                 total_score_amount: all_score
             }
             temp_hairetu.push(today)
-            // {name: 'Page A', total_score_amount: 234, total_action_amount: 12},
             this.setState({local_molded_data: temp_hairetu})
         }
-        // if (this.props.tweets !== prevProps.tweets){
-            // this.setState({local_molded_data: temp_hairetu})
-        // }
-
     }
 
     render(){
@@ -117,7 +111,6 @@ class ChartContainer extends Component {
 
 const mapStateToProps = (state) => {    
   return { 
-    // tweets: state.firebase.items,
     tweets: state.firebase.weekly_posts,
     weekly_posts: state.firebase.weekly_posts,
     current_user: state.firebase.current_user
