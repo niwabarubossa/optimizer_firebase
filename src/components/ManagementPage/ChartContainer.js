@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classes from '../../assets/managementPage/ChartContainer.css'
 import ComposedChartContainer from './ComposedChartContainer'
-import { getPosts,getWeeklyPosts,getCurrentState,getUserInformation } from '../../actions'
+import { getPosts,getWeeklyPosts,getCurrentState,getUserInformation,set_current_user_and_in_firestore } from '../../actions'
 import { connect } from 'react-redux'
 
 import {
@@ -27,8 +27,9 @@ class ChartContainer extends Component {
 
     async componentDidUpdate(prevProps) {
         　if ( prevProps.current_user != (this.props.current_user) || (this.state.local_molded_data) == null ) {
+
         　　await this.props.getWeeklyPosts(this.props.current_user.uid);
-            //累計スコアの算出
+            await this.props.set_current_user_and_in_firestore(this.props.current_user)
             var all_score = 0;
             for(i=0 ; i<this.props.tweets.length ; i++){
                 if(this.props.tweets[i].score){
@@ -117,5 +118,5 @@ const mapStateToProps = (state) => {
     current_user: state.firebase.current_user
   }
 }
-const mapDispatchToProps = ({ getPosts,getWeeklyPosts,getCurrentState,getUserInformation })
+const mapDispatchToProps = ({ getPosts,getWeeklyPosts,getCurrentState,getUserInformation,set_current_user_and_in_firestore })
 export default connect( mapStateToProps,mapDispatchToProps)(ChartContainer)
