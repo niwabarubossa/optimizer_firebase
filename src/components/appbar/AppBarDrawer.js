@@ -35,26 +35,32 @@ class AppBarDrawer extends Component {
                           <ListItemText primary={'トップページ'} />
                           </ListItem>
                       </Link>
-                      <Link to={'/management'} style={{textDecoration : 'none',color: 'white' }} onClick={ () => this.props.handleDrawerToggleReset()} >
-                          <ListItem button key={'aaa'}>
-                          <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                          <ListItemText primary={'管理画面へ'} />
-                          </ListItem>
-                      </Link>
 
                       {
                         this.props.current_user ?
                         <React.Fragment>
+                          <Link to={'/management'} style={{textDecoration : 'none',color: 'white' }} onClick={ () => this.props.handleDrawerToggleReset()} >
+                              <ListItem button key={'aaa'}>
+                              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                              <ListItemText primary={'管理画面へ'} />
+                              </ListItem>
+                          </Link>
                           <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }}  onClick={ () => this.props.handleDrawerToggleReset()} >
                             <ListItem button key={'submitButton'}>
                               <ListItemIcon> <InboxIcon /> </ListItemIcon>
                               <ListItemText primary={'記録する'} />
                             </ListItem>
                           </Link>
-                          <ListItem button key={'logout_button'} onClick={this.logoutClicked.bind(this)}>
-                            <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                            <ListItemText primary={'ログアウト'} />
-                          </ListItem>
+
+                          <Divider />
+
+                          
+                          <Link to={'/logout'} style={{textDecoration : 'none',color: 'white' }}  onClick={ () => this.props.handleDrawerToggleReset()} >
+                            <ListItem button key={'logout_button'} onClick={this.logoutClicked.bind(this)}>
+                              <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                              <ListItemText primary={'ログアウト'} />
+                            </ListItem>
+                          </Link>
                         </React.Fragment>
                         :
                         <Link to={'/login'} style={{textDecoration : 'none',color: 'white' }} onClick={ () => this.props.handleDrawerToggleReset()} >
@@ -66,15 +72,14 @@ class AppBarDrawer extends Component {
                       }
 
                 </List>
-              <Divider />
-              <List>
+              {/* <List>
                 {['目標１', '目標２', '目標３'].map((text, index) => (
                   <ListItem button key={text}>
                     <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
-              </List>
+              </List> */}
             </div>
           );
     }
