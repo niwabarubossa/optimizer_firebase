@@ -13,6 +13,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentsContainer from './components/TopPage/ContentsContainer'
 import SubmitPage from './components/SubmitPage/MainContainer'
+import LogoutPage from './components/LogoutPage/MainContainer'
 import { Link } from 'react-router-dom'
 
 const drawerWidth = 240;
@@ -76,6 +77,7 @@ class App extends Component {
                   <Route path="/management" component={ManagementPageMainContainer} />
                   <Route path="/user/:id" component={UserPage} />
                   <Route path="/login" component={LoginPageMainContainer} />
+                  <Route path="/logout" component={LogoutPage} />
                   <Route path="/submit" component={SubmitPage} />
                 </main>
               </div>
