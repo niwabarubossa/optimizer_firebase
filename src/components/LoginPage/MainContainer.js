@@ -74,15 +74,15 @@ class MainContainer extends Component {
                             </React.Fragment>
                             :
                             <React.Fragment>
-                                <Button variant="outlined" color="primary" onClick={this.props.getUserInformation}>
-                                    ログインしてる？
-                                </Button>
+                                {/* <Button variant="outlined" color="primary" onClick={this.props.getUserInformation}>
+                                    ログイン状態確認
+                                </Button> */}
                                 <Button variant="outlined" color="primary" onClick={this.props.loginWithTwitter}>
                                     Twitterでログイン
                                 </Button>
-                                <Button variant="outlined" color="primary" onClick={this.loginWithGoogleDirect.bind(this)}>
+                                {/* <Button variant="outlined" color="primary" onClick={this.loginWithGoogleDirect.bind(this)}>
                                     Googleでログイン
-                                </Button>
+                                </Button> */}
                             </React.Fragment>
                         }
                 </div>
