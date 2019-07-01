@@ -9,12 +9,13 @@ class RightContainer extends Component {
     render(){
         return(
             <div>
+                
                 <ContentsHeader content={'記録'} />
                     <ChartContainer height={300} />
-                <ContentsHeader content={'ランキング'} />
+                {/* <ContentsHeader content={'ランキング'} />
                     <RankingContainer />
                 <ContentsHeader content={'トレンド'} />
-                    <TrendContainer />
+                    <TrendContainer /> */}
             </div>
         )
     }

@@ -41,6 +41,7 @@ class ContentsContainer extends Component {
     async onSubmit(values){
         // var blob = new Blob([values.image], { type: "image/jpg" });
         // var file_name = values.image.name
+
         await this.props.submitTweet(this.props.current_user,this.props.user_in_firestore,values)
         // await this.props.submitTweet(this.props.current_user,values)
         // await this.props.submitTestImage(blob,file_name, values)
