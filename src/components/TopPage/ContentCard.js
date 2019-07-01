@@ -94,30 +94,23 @@ class ContentCard extends Component {
 
         return(
           <div className={css.cardContainer} >
-          {/* <h1>{this.aiueo}</h1> */}
           <Link to={`user/${this.props.props.author_id}`} >
             <ListItem className={classes.card}>
                     <ListItemAvatar>
                     <FaceIcon className={classes.icon} />
                     </ListItemAvatar>
                     <ListItemText
-                      // primary="Brunch this weekend?"
                       primary={displayName}
                       secondary={
                       <React.Fragment>
                       <Typography component="span" className={classes.inline} color="textPrimary">
-                        {/* Ali Connors */}
                       </Typography>
-                        {/* {" — I'll be in your neighborhood doing errands this…"} */}
                         </React.Fragment>
                       }
                       />
             </ListItem>
           </Link>
             <div className={css.contentContainer}>
-              {/* {this.props.props.id} */}
-              {/* {this.props.props.author_id} */}
-              {/* {this.props.props.title} */}
               {this.props.props.body}
               {/* <img className={css.tweetImage} src={this.props.props.image_url} ></img> */}
             </div>

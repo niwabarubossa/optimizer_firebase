@@ -58,28 +58,29 @@ const styles = theme => ({
 class UserTweet extends Component {
     render(){
         const { classes } = this.props;
+        if(this.props.props.author_name)
+          var displayName = this.props.props.author_name;
+        else 
+          var displayName = 'none';
         return(
           <div className={css.cardContainer} >
 
-          <Link to={`user/${this.props.props.author_id}`} >
+          {/* <Link to={`user/${this.props.props.author_id}`} > */}
             <ListItem className={classes.card}>
                     <ListItemAvatar>
-                      {/* <Avatar alt="Remy Sharp" src="../../assets/images/" /> */}
                     <FaceIcon className={classes.icon} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary="Brunch this weekend?"
+                      primary={displayName}
                       secondary={
                       <React.Fragment>
                       <Typography component="span" className={classes.inline} color="textPrimary">
-                        Ali Connors
                       </Typography>
-                        {" — I'll be in your neighborhood doing errands this…"}
                         </React.Fragment>
                       }
                       />
             </ListItem>
-            </Link>
+            {/* </Link> */}
             <div className={css.contentContainer}>
               {this.props.props.author_id}
               {this.props.props.title}
