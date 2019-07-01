@@ -33,15 +33,6 @@ class ComposedChartContainer extends Component {
             <div className={classes.chartContainer}>
                 <div className={classes.barChartContainer}>
 
-                {/* //   { this.props.weekly_posts && this.props.weekly_posts.map(weekly_post => {
-                //     return (
-                //         <div key={weekly_post.tweet_id} height={400} onClick={this.testClick.bind(this)}>
-                //         this is .....
-                //           {weekly_post.score}
-                //         </div>
-                //     )
-                // })}   */}
-
                   <ResponsiveContainer width="100%" height={this.props.height} style={{zIndex: 1}} >
                     <ComposedChart height={250} data={this.props.local_molded_data}>
                     <XAxis dataKey="name" />
@@ -50,7 +41,7 @@ class ComposedChartContainer extends Component {
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Bar dataKey="total_score_amount" barSize={20} fill="#1fa8d8" />
+                    <Area type="monotone" dataKey="total_score_amount" fill="#63c2de" stroke="#63c2de" />
                     </ComposedChart>
                   </ResponsiveContainer>
 
@@ -61,7 +52,7 @@ class ComposedChartContainer extends Component {
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Area type="monotone" dataKey="total_score_amount" fill="#63c2de" stroke="#63c2de" />
+                    <Bar dataKey="total_action_amount" barSize={40} fill="#1fa8d8" />
                     </ComposedChart>
                   </ResponsiveContainer>
 

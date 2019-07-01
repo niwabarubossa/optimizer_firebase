@@ -11,6 +11,8 @@ import css from '../../assets/submitPage/SubmitForm.css'
 // import FileInput from '../FileInput'
 // import FieldFileInput from './FieldFileInput'
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router';
+
 
 
 class ContentsContainer extends Component {
@@ -42,6 +44,7 @@ class ContentsContainer extends Component {
         // var blob = new Blob([values.image], { type: "image/jpg" });
         // var file_name = values.image.name
         await this.props.submitTweet(this.props.current_user,this.props.user_in_firestore,values)
+        this.props.history.push('/')
         // await this.props.submitTweet(this.props.current_user,values)
         // await this.props.submitTestImage(blob,file_name, values)
     }
@@ -76,6 +79,8 @@ const mapStateToProps = (state) => {
     }
   }
 const mapDispatchToProps = ({ submitTweet, submitTestImage })
-export default connect(mapStateToProps, mapDispatchToProps)(
+
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
     reduxForm({ validate, form: 'contentsContainerForm' })(ContentsContainer)
-)
+))
