@@ -12,7 +12,7 @@ import css from '../../assets/submitPage/SubmitForm.css'
 // import FieldFileInput from './FieldFileInput'
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 class ContentsContainer extends Component {
@@ -20,6 +20,8 @@ class ContentsContainer extends Component {
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
     }
+
+    
     renderScoreField(field){
         const { input, label, type, meta: {touched, error} } = field   
         return (
@@ -43,22 +45,36 @@ class ContentsContainer extends Component {
     async onSubmit(values){
         // var blob = new Blob([values.image], { type: "image/jpg" });
         // var file_name = values.image.name
+        console.log(values)
         this.props.history.push('/management')
         await this.props.submitTweet(this.props.current_user,this.props.user_in_firestore,values)
         // await this.props.submitTweet(this.props.current_user,values)
         // await this.props.submitTestImage(blob,file_name, values)
     }
 
+
     render(){
 
-        const { handleSubmit, pristine, submitting, invalid } = this.props
+        // const minValue = min => value =>
+        // value && value < min ? `Must be at least ${min}` : undefined
+        // const minValue18 = minValue(18)
+        // const { handleSubmit, pristine, submitting, invalid } = this.props
         const style = { margin: 5 }
+        const { handleSubmit, pristine, submitting, invalid ,className, type, input, disabled, meta: {touched, error} } = this.props;
         return(
                     <div className={css.formContainer}>
                         <form onSubmit={handleSubmit(this.onSubmit)} className={css.form}>
-                            <div><Field label="Score" name="score" type="number" component={this.renderScoreField} /></div>
+                            {/* <div><Field label="Score" name="score" type="number" component={this.renderScoreField} validate={[ minValue18 ]} /></div>
+                         */}
+                            <div><Field label="Score" name="score" type="number" component={this.renderScoreField}  /></div>
                             <div><Field label="Body" name="body" type="text" component={this.renderContentField} /></div>
                             {/* <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div> */}
+                            {/* <Field name="favoriteColor" component="select">
+                                <option></option>
+                                <option value="ff0000">Red</option>
+                                <option value="00ff00">Green</option>
+                                <option value="0000ff">Blue</option>
+                            </Field> */}
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
                     </div>

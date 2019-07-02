@@ -59,7 +59,6 @@ class ContentsContainer extends Component {
                             <div><Field label="Score" name="score" type="number" component={this.renderScoreField} /></div>
                             <div><Field label="Body" name="body" type="text" component={this.renderContentField} /></div>
                             {/* <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div> */}
-
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
                     </div>
