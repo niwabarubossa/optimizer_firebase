@@ -21,6 +21,9 @@ class ContentsContainer extends Component {
         this.onSubmit = this.onSubmit.bind(this)
     }
 
+    componentDidMount(){
+        document.getElementById('option_form').options[100].selected = true;
+    }
     
     renderScoreField(field){
         const { input, label, type, meta: {touched, error} } = field   
@@ -42,51 +45,29 @@ class ContentsContainer extends Component {
         )
     }
 
-    async onSubmit(values){
-        // var blob = new Blob([values.image], { type: "image/jpg" });
-        // var file_name = values.image.name
-        console.log(values)
-        this.props.history.push('/management')
-        await this.props.submitTweet(this.props.current_user,this.props.user_in_firestore,values)
-        // await this.props.submitTweet(this.props.current_user,values)
-        // await this.props.submitTestImage(blob,file_name, values)
-    }
-
-
-    render(){
-
-        // const minValue = min => value =>
-        // value && value < min ? `Must be at least ${min}` : undefined
-        // const minValue18 = minValue(18)
-        const { handleSubmit, pristine, submitting, invalid } = this.props
-        const style = { margin: 5 }
-        return(
-                    <div className={css.formContainer}>
-                        <form onSubmit={handleSubmit(this.onSubmit)} className={css.form}>
-                            {/* <div><Field label="Score" name="score" type="number" component={this.renderScoreField} validate={[ minValue18 ]} /></div>
-                         */}
-                            <div><Field label="Score" name="score" type="number" component={this.renderScoreField} /></div>
-                            <div><Field label="Body" name="body" type="text" component={this.renderContentField} /></div>
-                            {/* <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div> */}
-                            <Field name="favoriteColor" component="select">
-                                <option value="-100">-100</option>
-                                <option value="-99">-99</option>
-                                <option value="-98">-98</option>
-                                <option value="-97">-97</option>
-                                <option value="-96">-96</option>
-                                <option value="-95">-95</option>
-                                <option value="-94">-94</option>
-                                <option value="-93">-93</option>
-                                <option value="-92">-92</option>
-                                <option value="-91">-91</option>
-                                <option value="-90">-90</option>
-                                <option value="-89">-89</option>
-                                <option value="-88">-88</option>
-                                <option value="-87">-87</option>
-                                <option value="-86">-86</option>
-                                <option value="-85">-85</option>
-                                <option value="-84">-84</option>
-                                <option value="-83">-83</option>
+    renderSample(field){
+        const { input, label, type, meta: {touched, error} } = field   
+        return (
+            <React.Fragment>
+                <select {...input} id="option_form">
+                    <option value="-100">-100</option>
+                    <option value="-99">-99</option>
+                    <option value="-98">-98</option>
+                    <option value="-97">-97</option>
+                    <option value="-96">-96</option>
+                    <option value="-95">-95</option>
+                    <option value="-94">-94</option>
+                    <option value="-93">-93</option>
+                    <option value="-92">-92</option>
+                    <option value="-91">-91</option>
+                    <option value="-90">-90</option>
+                    <option value="-89">-89</option>
+                    <option value="-88">-88</option>
+                    <option value="-87">-87</option>
+                    <option value="-86">-86</option>
+                    <option value="-85">-85</option>
+                    <option value="-84">-84</option>
+                    <option value="-83">-83</option>
                                 <option value="-82">-82</option>
                                 <option value="-81">-81</option>
                                 <option value="-80">-80</option>
@@ -169,7 +150,7 @@ class ContentsContainer extends Component {
                                 <option value="-3">-3</option>
                                 <option value="-2">-2</option>
                                 <option value="-1">-1</option>
-                                <option value="0">0</option>
+                                <option value="0" selected>0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -270,7 +251,38 @@ class ContentsContainer extends Component {
                                 <option value="98">98</option>
                                 <option value="99">99</option>
                                 <option value="100">100</option>
-                            </Field>
+                            </select>
+            </React.Fragment>
+        )
+    }
+
+    async onSubmit(values){
+        // var blob = new Blob([values.image], { type: "image/jpg" });
+        // var file_name = values.image.name
+        console.log(values)
+        var score = document.getElementById('option_form').value
+        this.props.history.push('/management')
+        await this.props.submitTweet(this.props.current_user,this.props.user_in_firestore,values,score)
+        // await this.props.submitTweet(this.props.current_user,values)
+        // await this.props.submitTestImage(blob,file_name, values)
+    }
+
+
+
+    render(){
+        const { handleSubmit, pristine, submitting, invalid } = this.props
+        const style = { margin: 5 }
+        return(
+                    <div className={css.formContainer}>
+                        <form onSubmit={handleSubmit(this.onSubmit)} className={css.form}>
+                            {/* <div><Field label="Score" name="score" type="number" component={this.renderScoreField} validate={[ minValue18 ]} /></div>
+                         */}
+                            <div><Field label="Score" name="score" type="number" component={this.renderScoreField} /></div>
+                            <div><Field label="Body" name="body" type="text" component={this.renderContentField} /></div>
+                            <div><Field label="sampleScore" name="sampleScore" type="number" component={this.renderSample} /></div>
+                            {/* <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div> */}
+                            {/* <Field name="favoriteColor" component="select" id="sample"> */}
+                            {/* </Field> */}
                             <RaisedButton label="Submit" type="submit" style={style} />
                         </form>
                     </div>
