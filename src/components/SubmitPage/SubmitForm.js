@@ -49,6 +49,7 @@ class ContentsContainer extends Component {
         const { input, label, type, meta: {touched, error} } = field   
         return (
             <React.Fragment>
+                <label>改善スコア</label>
                 <select {...input} id="option_form">
                     <option value="-100">-100</option>
                     <option value="-99">-99</option>
@@ -277,9 +278,9 @@ class ContentsContainer extends Component {
                         <form onSubmit={handleSubmit(this.onSubmit)} className={css.form}>
                             {/* <div><Field label="Score" name="score" type="number" component={this.renderScoreField} validate={[ minValue18 ]} /></div>
                          */}
-                            <div><Field label="Score" name="score" type="number" component={this.renderScoreField} /></div>
-                            <div><Field label="Body" name="body" type="text" component={this.renderContentField} /></div>
                             <div><Field label="sampleScore" name="sampleScore" type="number" component={this.renderSample} /></div>
+                            {/* <div><Field label="Score" name="score" type="number" component={this.renderScoreField} /></div> */}
+                            <div><Field label="Body" name="body" type="text" component={this.renderContentField} /></div>
                             {/* <div><Field label="Body" name="image" type="file" component={FieldFileInput} /></div> */}
                             {/* <Field name="favoriteColor" component="select" id="sample"> */}
                             {/* </Field> */}
