@@ -39,7 +39,7 @@ class ContentsContainer extends Component {
         const { input, label, type, meta: {touched, error} } = field   
         return (
             <React.Fragment>
-                <label>改善内容</label>
+                <p><label>改善内容</label></p>
                 <textarea placeholder="改善内容を入力してください..." {...input} className={css.inputContent} cols="50" rows="2"></textarea>
             </React.Fragment>
         )
@@ -49,8 +49,9 @@ class ContentsContainer extends Component {
         const { input, label, type, meta: {touched, error} } = field   
         return (
             <React.Fragment>
-                <label>改善スコア</label>
-                <select {...input} id="option_form">
+                <div className={css.selectContainer}>
+                    <p><label>改善スコア</label></p>
+                    <select {...input} id="option_form">
                     <option value="-100">-100</option>
                     <option value="-99">-99</option>
                     <option value="-98">-98</option>
@@ -253,6 +254,7 @@ class ContentsContainer extends Component {
                                 <option value="99">99</option>
                                 <option value="100">100</option>
                             </select>
+                </div>
             </React.Fragment>
         )
     }
