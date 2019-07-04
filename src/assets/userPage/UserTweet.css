@@ -15,6 +15,7 @@
     max-width: 600px;
     padding:5px 20px;
     line-height: 30px;
+    word-break: break-all;
 }
 .tweetHeader{
     display: flex;

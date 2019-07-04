@@ -41,7 +41,7 @@ class ComposedChartContainer extends Component {
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Area type="monotone" dataKey="total_score_amount" fill="#63c2de" stroke="#63c2de" />
+                    <Area type="monotone" dataKey="累積スコア" fill="#63c2de" stroke="#63c2de" />
                     </ComposedChart>
                   </ResponsiveContainer>
 
@@ -52,7 +52,7 @@ class ComposedChartContainer extends Component {
                     <Tooltip />
                     <Legend />
                     <CartesianGrid stroke="#f5f5f5" />
-                    <Bar dataKey="total_action_amount" barSize={40} fill="#1fa8d8" />
+                    <Bar dataKey="総改善数" barSize={40} fill="#1fa8d8" />
                     </ComposedChart>
                   </ResponsiveContainer>
 

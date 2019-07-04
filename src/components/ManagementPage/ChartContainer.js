@@ -102,15 +102,17 @@ class ChartContainer extends Component {
             var temp_hairetu = []
             for(i=0; i< hairetu.length -1 ;i++){
                 var temp = {name: i,
-                            total_score_amount: (all_score+hairetu[i]),
-                            total_action_amount: (all_action_amount+action_num_hairetu[i])
+                            // total_score_amount: (all_score+hairetu[i]),
+                            累積スコア: (all_score+hairetu[i]),
+                            総改善数: (all_action_amount+action_num_hairetu[i])
                         }
                 temp_hairetu.push(temp)
             }
             var today = {
                 name: 7,
-                total_score_amount: all_score,
-                total_action_amount: all_action_amount,
+                // total_score_amount: all_score,
+                累積スコア: all_score,
+                総改善数: all_action_amount,
             }
             temp_hairetu.push(today)
             this.setState({local_molded_data: temp_hairetu})
