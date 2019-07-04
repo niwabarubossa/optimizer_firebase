@@ -12,7 +12,6 @@ class MainContainer extends Component {
     // }
     componentDidMount(){
         this.props.handleDrawerToggleReset()
-        this.props.getPosts()
     }
     render(){
         return(
