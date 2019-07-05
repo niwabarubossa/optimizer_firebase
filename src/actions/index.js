@@ -99,12 +99,12 @@ export const getMyPosts = (uid) => async dispatch =>{
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
         });
     });
-    dispatch(getPostsSuccess(temperature))
+    dispatch(getMyPostsSuccess(temperature))
 }
 export const GET_MY_POSTS_SUCCESS = 'GET_MY_POSTS_SUCCESS' 
-export const getMyPostsSuccess = (json) => {  
+export const getMyPostsSuccess = (json) => { 
     return {
-      type: GET_WEEKLY_POSTS_SUCCESS,
+      type: GET_MY_POSTS_SUCCESS,
       my_posts: json,
     }
   }
