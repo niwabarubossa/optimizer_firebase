@@ -111,6 +111,24 @@ export const getMyPostsSuccess = (json) => {
     }
   }
 
+
+export const getDisplayUserTweets = (uid) => async dispatch =>{
+    const temperature = []
+    await firestore.collection('users').doc(uid).collection('tweets').orderBy("created_at",'desc').get().then((querySnapshot) => {
+        querySnapshot.forEach(function(doc) {
+            temperature.push(Object.assign(doc.data(), {id: doc.id}))
+        });
+    });
+    dispatch(getDisplayUserTweetsSuccess(temperature))
+}
+export const GET_DISPLAY_USER_TWEETS_SUCCESS = 'GET_DISPLAY_USER_TWEETS_SUCCESS' 
+export const getDisplayUserTweetsSuccess = (json) => { 
+    return {
+      type: GET_DISPLAY_USER_TWEETS_SUCCESS,
+      display_user_tweets: json,
+    }
+  }
+
 export const GET_WEEKLY_POSTS_SUCCESS = 'GET_WEEKLY_POSTS_SUCCESS'
 export const getWeeklyPostsSuccess = (json) => {  
   return {
