@@ -109,6 +109,7 @@ class ContentCard extends Component {
                       secondary={
                       <React.Fragment>
                       <Typography component="span" className={classes.inline} color="textPrimary">
+                      {`${this.props.props.score} 効率アップ！`}
                       </Typography>
                         </React.Fragment>
                       }
