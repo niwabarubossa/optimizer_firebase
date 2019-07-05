@@ -28,6 +28,7 @@ export const submitTweet = (current_user,user_in_firestore,input,score) => async
         body: input.body,
         author_id: current_user.uid,
         author_name: user_in_firestore.displayName,
+        author_photo: user_in_firestore.photoURL,
         tweet_id: Math.floor(Math.random()*1000000),
         created_at: new Date().getTime(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -56,6 +57,7 @@ export const submitTweet = (current_user,user_in_firestore,input,score) => async
         body: input.body,
         author_id: current_user.uid,
         author_name: user_in_firestore.displayName,
+        author_photo: user_in_firestore.photoURL,
         tweet_id: Math.floor(Math.random()*1000000),
         created_at: new Date().getTime(),
         timestamp: firebase.firestore.FieldValue.serverTimestamp()

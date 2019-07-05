@@ -97,13 +97,19 @@ class ContentCard extends Component {
           <Link to={`user/${this.props.props.author_id}`} >
             <ListItem className={classes.card}>
                     <ListItemAvatar>
-                    <FaceIcon className={classes.icon} />
+                      {
+                        this.props.props.author_photo ?
+                        <img src={this.props.props.author_photo} className={css.author_photo} ></img>
+                        :
+                        <FaceIcon className={classes.icon} />
+                      }
                     </ListItemAvatar>
                     <ListItemText
                       primary={displayName}
                       secondary={
                       <React.Fragment>
                       <Typography component="span" className={classes.inline} color="textPrimary">
+                      {`${this.props.props.score} 効率アップ！`}
                       </Typography>
                         </React.Fragment>
                       }
