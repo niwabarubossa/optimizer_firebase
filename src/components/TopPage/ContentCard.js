@@ -97,7 +97,12 @@ class ContentCard extends Component {
           <Link to={`user/${this.props.props.author_id}`} >
             <ListItem className={classes.card}>
                     <ListItemAvatar>
-                    <FaceIcon className={classes.icon} />
+                      {
+                        this.props.props.author_photo ?
+                        <img src={this.props.props.author_photo} className={css.author_photo} ></img>
+                        :
+                        <FaceIcon className={classes.icon} />
+                      }
                     </ListItemAvatar>
                     <ListItemText
                       primary={displayName}

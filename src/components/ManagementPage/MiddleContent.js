@@ -11,7 +11,7 @@ class MiddleContent extends Component {
     //今のままだと最初にこのページを見ないとuser tweets　が表示されない
 
     async componentDidMount(){
-        if( this.props.my_posts == undefined && this.props.current_user ){
+        if( this.props.current_user ){
             await this.props.getMyPosts(this.props.current_user.uid)
         }
     }
