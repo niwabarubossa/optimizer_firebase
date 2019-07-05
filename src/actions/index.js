@@ -96,7 +96,7 @@ export const getPosts = () => async dispatch => {
 
 export const getMyPosts = (uid) => async dispatch =>{
     const temperature = []
-    await firestore.collection('users').doc(uid).collection('tweets').orderBy("created_at").get().then((querySnapshot) => {
+    await firestore.collection('users').doc(uid).collection('tweets').orderBy("created_at",'desc').get().then((querySnapshot) => {
         querySnapshot.forEach(function(doc) {
             temperature.push(Object.assign(doc.data(), {id: doc.id}))
         });
