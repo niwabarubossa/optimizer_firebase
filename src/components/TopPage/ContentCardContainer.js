@@ -5,12 +5,9 @@ import { connect } from 'react-redux'
 import classes from '../../assets/mainPage/ContentCardContainer.css'
 
 class ContentCardContainer extends Component {
-    componentWillMount(){
-        this.props.handleDrawerToggleReset()
-    }
-    componentDidMount(){
-        this.props.getPosts()
-    }
+    // componentWillMount(){
+    //     this.props.handleDrawerToggleReset()
+    // }
     render(){
         return(
             <div className={classes.ContentCardContainer}>

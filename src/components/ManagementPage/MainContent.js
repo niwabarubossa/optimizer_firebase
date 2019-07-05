@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TopContent from './TopContent'
 import MiddleContent from './MiddleContent'
+import ContentCardContainer from '../TopPage/ContentCardContainer'
 import ComposedChartContainer from './ComposedChartContainer'
 import classes from '../../assets/managementPage/MainContent.css'
 import RadarChartContainer from './RadarChartContainer'
