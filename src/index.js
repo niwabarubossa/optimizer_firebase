@@ -16,7 +16,7 @@ composeWithDevTools(applyMiddleware(thunk)) : applyMiddleware(thunk)
 const store = createStore(reducer, enhancer)
 
 ReactDOM.render(
-    <MuiThemeProvider>
+    <MuiThemeProvider>     
         <Provider store={store}>
             <App />
         </Provider>

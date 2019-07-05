@@ -15,6 +15,7 @@ import ContentsContainer from './components/TopPage/ContentsContainer'
 import SubmitPage from './components/SubmitPage/MainContainer'
 import LogoutPage from './components/LogoutPage/MainContainer'
 import { Link } from 'react-router-dom'
+import ScrollToTop from './ScrollToTop'
 
 const drawerWidth = 240;
 const styles = theme => ({
@@ -58,40 +59,41 @@ class App extends Component {
     const { classes, theme } = this.props;
     return (
       <BrowserRouter>
-          { this.state.showPopup ?
-                    <ContentsContainer />             
-                    :
-                    null
-                  }
-            <div className="App" style={{textAlign: 'center',marginTop: '64px',boxSizing: 'border-box'}}>
+        <ScrollToTop>
+            { this.state.showPopup ?
+                      <ContentsContainer />             
+                      :
+                      null
+                    }
+              <div className="App" style={{textAlign: 'center',marginTop: '64px',boxSizing: 'border-box'}}>
 
-              <div className={classes.root}>   
-                <AppBarMain />
-                <nav className={classes.drawer}>
-                  <InNav />
-                </nav>   
+                <div className={classes.root}>   
+                  <AppBarMain />
+                  <nav className={classes.drawer}>
+                    <InNav />
+                  </nav>   
 
-                <main className={classes.content} style={{textAlign: 'center'}}>
-                  <Route exact path="/" component={MainContainer} />
-                  {/* <Route path="/:id" component={TestComponent} /> */}
-                  <Route path="/management" component={ManagementPageMainContainer} />
-                  <Route path="/user/:id" component={UserPage} />
-                  <Route path="/login" component={LoginPageMainContainer} />
-                  <Route path="/logout" component={LogoutPage} />
-                  <Route path="/submit" component={SubmitPage} />
-                </main>
+                  <main className={classes.content} style={{textAlign: 'center'}}>
+                    <Route exact path="/" component={MainContainer} />
+                    {/* <Route path="/:id" component={TestComponent} /> */}
+                    <Route path="/management" component={ManagementPageMainContainer} />
+                    <Route path="/user/:id" component={UserPage} />
+                    <Route path="/login" component={LoginPageMainContainer} />
+                    <Route path="/logout" component={LogoutPage} />
+                    <Route path="/submit" component={SubmitPage} />
+                  </main>
+                </div>
+
+                {/* <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}> */}
+
+                <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }} >
+                  <FloatingActionButton style={AddBtnStyle} >
+                    <ContentAdd />
+                  </FloatingActionButton>
+                </Link>
               </div>
 
-              {/* <FloatingActionButton style={AddBtnStyle} onClick={this.togglePopup.bind(this)}> */}
-
-              <Link to={'/submit'} style={{textDecoration : 'none',color: 'white' }} >
-                <FloatingActionButton style={AddBtnStyle} >
-                  <ContentAdd />
-                </FloatingActionButton>
-              </Link>
-            </div>
-
-
+        </ScrollToTop>
       </BrowserRouter> 
     );
   }
